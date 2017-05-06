@@ -1,0 +1,33 @@
+<!--
+  Generated template for the EnviarConfirmacao page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>enviar-confirmacao</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <div *ngIf="isSending==true" padding>
+  Conectando e enviando confirmação de seminário...
+  </div>
+
+  <div *ngIf="isSending==false" padding>
+      <div *ngIf="isOk==true" padding>
+            Seminário enviado!
+      </div>
+      <div *ngIf="isOk==false" padding>
+            Falha no envio do seminário!
+      </div>
+  </div>
+
+
+</ion-content>
