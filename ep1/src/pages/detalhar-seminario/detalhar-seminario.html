@@ -16,13 +16,21 @@
 <ion-content padding>
 
 <div>
+   <div>
+        <button clear="true" ion-button (click)="projectQRCode()"><qr-code value="{{idSeminario}}" size="{{qrCodeSize()}}"></qr-code></button> Seminario: {{idSeminario}} - NONONO
+   </div>
+   <div>
+        Aperte no qrcode para expandí-lo. 
+   </div>
   NONONONNONONO NONONONNONONONONONONNONONONONONONNONONONONONONNONONONONONONNONONONONONONNONONO
   NONONONNONONONONONONNONONONONONNONONONONONONONNONONONONONONNONONONONONONNONONONONONONNONONONONONONNONONO
 
 </div>
 
 <div *ngIf="isListening==false" padding>
-  <button ion-button (click)="listenData($event)">Receber confirmação</button>
+  <div>
+    <button ion-button (click)="listenData($event)">Receber confirmação</button>
+  </div>
 </div>
 
 <div *ngIf="isListening==true" padding>

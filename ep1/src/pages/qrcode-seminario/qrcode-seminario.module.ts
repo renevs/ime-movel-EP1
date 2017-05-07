@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { DetalharSeminario } from './detalhar-seminario';
+import { QrcodeSeminario } from './qrcode-seminario';
 import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
   declarations: [
-    DetalharSeminario,
+    QrcodeSeminario,
   ],
   imports: [
-    IonicPageModule.forChild(DetalharSeminario),
+    IonicPageModule.forChild(QrcodeSeminario),
     QRCodeModule,
-    
   ],
   exports: [
-    DetalharSeminario
+    QrcodeSeminario
   ]
 })
-export class DetalharSeminarioModule {}
+export class QrcodeSeminarioModule {}

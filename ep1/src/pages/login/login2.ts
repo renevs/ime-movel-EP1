@@ -31,4 +31,7 @@ export class LoginPage2 {
   confirmarbluetooth() {
        this.navCtrl.setRoot( "SelecionarDispositivo" );
   }
+  confirmarQRCode() {
+       this.navCtrl.setRoot( "ConfirmarQrcode" );
+  }
 }

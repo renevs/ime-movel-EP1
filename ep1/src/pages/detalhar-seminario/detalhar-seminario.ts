@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {  NgZone } from '@angular/core';
 import * as BT from '../../app/bluetoothConstants';
+import {Platform} from 'ionic-angular';
 
 declare var cordova: any;
 
@@ -19,8 +20,16 @@ declare var cordova: any;
 })
 export class DetalharSeminario {
   isListening:boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private zone:NgZone ) {
+  idSeminario:number;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private zone:NgZone,
+    public platform:Platform ) {
     this.isListening = false;
+
+    // this.idSeminario = navParams.get('idSeminario');
+    this.idSeminario = 10;
+    console.log('Seminario: '+ this.idSeminario );
+
+
     cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
             console.log( JSON.stringify(data));
             console.log( "leu algo no subscribe" );
@@ -37,6 +46,10 @@ export class DetalharSeminario {
                     }
                 } );
             } );
+  }
+
+  qrCodeSize() {
+      return this.platform.width() / 10; // (100/6)% do tamanho da tela
   }
 
   confirmaAcaoSubscriber( data ) {
@@ -154,5 +167,8 @@ export class DetalharSeminario {
   }
   stopListenData( event ) {
       this.stopServer();
+  }
+  projectQRCode( event ) {
+      this.navCtrl.push( "QrcodeSeminario", { idSeminario:this.idSeminario } );
   }
 }
