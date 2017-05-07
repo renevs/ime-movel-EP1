@@ -139,7 +139,6 @@ export class DetalharSeminario {
   }
 
   disconnect( deviceAddress ) {
-      this.isListening = false;
       cordova.plugins.usp.blueToothUniversal.disconnect( deviceAddress, (status)=>{
                 console.log("Desconectou: "+ deviceAddress);
             },
