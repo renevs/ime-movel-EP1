@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="blueTooth-Universal" version="0.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>usp-blueTooth-universal</name>
+    <js-module name="usp-blueTooth-universal" src="www/usp-blueTooth-universal.js">
+        <clobbers target="cordova.plugins.usp.blueToothUniversal" />
+    </js-module>
+
+
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/widget">
+            <feature name="BluetoothSerialUniversal">
+                <param name="android-package" value="br.usp.computacaomovel.cordova.BluetoothSerialUniversal"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/br/usp/computacaomovel/cordova/IBluetoothMessageHandler.java"
+            target-dir="src/br/usp/computacaomovel/cordova"/>
+        <source-file src="src/android/br/usp/computacaomovel/cordova/BluetoothSerialUniversal.java"
+            target-dir="src/br/usp/computacaomovel/cordova"/>
+        <source-file src="src/android/br/usp/computacaomovel/cordova/BluetoothSerialServiceUniversal.java"
+            target-dir="src/br/usp/computacaomovel/cordova"/>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.BLUETOOTH" />
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        </config-file>
+
+    </platform>
+
+    <platform name="browser">
+        <js-module src="src/browser/bluetoothSerialUniversal.js" name="BluetoothSerial_browser">
+            <clobbers target="cordova.plugins.usp.blueToothUniversal" />
+        </js-module>
+
+    </platform>
+
+</plugin>

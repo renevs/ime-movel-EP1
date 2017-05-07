@@ -39,7 +39,11 @@
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard",
     "cordova-plugin-device",
-    "cordova-plugin-statusbar"
+    "cordova-plugin-statusbar",
+    {
+      "locator": "src-plugin/blueTooth-Universal",
+      "id": "blueTooth-Universal"
+    }
   ],
   "cordovaPlatforms": [],
   "description": "ep1: An Ionic project"

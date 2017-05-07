@@ -1,0 +1,37 @@
+<!--
+  Generated template for the SelecionarDispositivio page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>selecionar-dispositivo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+
+
+  <div *ngIf="isVerificando==true" padding>
+  Verificando dispositivos bluetooth pareados...
+  </div>
+
+  <div *ngIf="isVerificando==false" padding>
+    <div *ngIf="isOk==true" padding>
+      <div>Escolha o dispositivo do professor:</div>
+
+      <button ion-item *ngFor="let m of mobiles" (click)="itemEscolhido($event, m)">
+        <div class="item-note" item-right>
+            <p>{{m.name}} ({{m.address}})</p>
+        </div>
+      </button>
+    </div>
+    <div *ngIf="isOk==false" padding>
+      Erro na obtenção dos dispositivos bluetooth! Tente novamente.
+    </div>
+  </div>
+</ion-content>
