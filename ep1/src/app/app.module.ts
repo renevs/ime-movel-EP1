@@ -8,28 +8,38 @@ import { HttpModule }    from '@angular/http';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
+import { LoginPage2 } from '../pages/login/login2';
 import { AlunoService } from '../services/aluno.service';
+
+import { QRCodeModule } from 'angular2-qrcode';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage
+    LoginPage,
+    LoginPage2
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    QRCodeModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage
+    LoginPage,
+    LoginPage2
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AlunoService,
+    BarcodeScanner,
+    ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

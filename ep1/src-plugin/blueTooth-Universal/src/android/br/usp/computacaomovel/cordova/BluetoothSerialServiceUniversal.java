@@ -164,6 +164,16 @@ public class BluetoothSerialServiceUniversal {
     public synchronized void stop() {
         if (D) Log.d(TAG, "stop");
 
+        if (mSecureAcceptThread != null) {
+            mSecureAcceptThread.cancel();
+            mSecureAcceptThread = null;
+        }
+
+        if (mInsecureAcceptThread != null) {
+            mInsecureAcceptThread.cancel();
+            mInsecureAcceptThread = null;
+        }
+
         for ( ConnectedThread i:connectedSockets.values() ) {
             i.cancel();
         }
@@ -173,16 +183,6 @@ public class BluetoothSerialServiceUniversal {
         if (mConnectThread != null) {
             mConnectThread.cancel();
             mConnectThread = null;
-        }
-
-        if (mSecureAcceptThread != null) {
-            mSecureAcceptThread.cancel();
-            mSecureAcceptThread = null;
-        }
-
-        if (mInsecureAcceptThread != null) {
-            mInsecureAcceptThread.cancel();
-            mInsecureAcceptThread = null;
         }
 
     }
@@ -288,6 +288,7 @@ public class BluetoothSerialServiceUniversal {
                                         mSocketType, context );
 
                     }
+                    socket = null;
                 }
             }  
             if (D) Log.i(TAG, "END mAcceptThread, socket Type: " + mSocketType);

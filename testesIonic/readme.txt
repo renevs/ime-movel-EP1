@@ -44,3 +44,26 @@ ionic state save
 ionic state reset
 
 ionic g provider 
+
+=====
+
+Peguei o core mais novo do ionic e mudei o package.json
+@ionic-native/core": "3.6.0
+
+npm i typings -g
+sudo npm install ng2-qrcode --save
+
+ionic plugin add --save phonegap-plugin-barcodescanner
+npm install --save @ionic-native/barcode-scanner
+
+
+sudo apt-get install libgif-dev
+
+npm install canvas --save
+
+npm install angular2-qrcode --save
+
+ionic plugin add --save cordova-plugin-screen-orientation
+npm install --save @ionic-native/screen-orientation
+
+

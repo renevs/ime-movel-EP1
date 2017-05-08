@@ -125,8 +125,12 @@ public class BluetoothSerialUniversal extends CordovaPlugin {
         } else if (action.equals(WRITE)) {
             String macAddress = args.getString(0);
             byte[] data = args.getArrayBuffer(1);
+
+            PluginResult result = new PluginResult(PluginResult.Status.NO_RESULT);
+            result.setKeepCallback(true);
+            callbackContext.sendPluginResult(result);
+
             bluetoothSerialService.write( macAddress, data, new CordovaBluetoohMessageHandler( callbackContext ));
-            callbackContext.success();
 
         } else if (action.equals(AVAILABLE)) {
 
