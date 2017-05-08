@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AlunoService extends Ep1ApiService {
-    constructor(private http: Http) { 
+    constructor(private http: Http) {
         super();
     }
 
@@ -14,7 +14,7 @@ export class AlunoService extends Ep1ApiService {
         return this.http.get(this.apiUrl + 'student').map(this.extractData).catch(this.handleError);
     }
 
-    searchAluno(nusp: string): Observable<Aluno[]> {
+    searchAluno(nusp: string): Observable<Agluno[]> {
         return this.http.get(this.apiUrl + 'get/${nusp}').map(this.extractData).catch(this.handleError);
     }*/
 
@@ -22,20 +22,20 @@ export class AlunoService extends Ep1ApiService {
         let body = 'nusp=' + nusp + '&pass=' + pass ;
         return this.http.post(this.apiUrl + 'login/student', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
     }
-    /*
-    addAluno(nusp: string, pass: string, name: string): Observable<Aluno[]> {
+
+    addAluno(nusp: string, pass: string, name: string): Promise<any> {
         let body = 'nusp=' + nusp + '&pass=' + pass + '&name=' + name;
-        return this.http.post(this.apiUrl + 'student/add', body, this.options).map(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'student/add', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
     }
 
-    
+    /*
     updateAluno(nusp: string, pass: string, name: string): Observable<Aluno[]> {
         let body = 'nusp=' + nusp + '&pass=' + pass + '&name=' + name;
         return this.http.post(this.apiUrl + 'student/edit', body, this.options).map(this.extractData).catch(this.handleError);
     }
-    
+
     deleteAluno(nusp: string): Observable<Aluno[]> {
         let body = 'nusp=' + nusp;
         return this.http.post(this.apiUrl + 'student/delete', body, this.options).map(this.extractData).catch(this.handleError);
-    }  */ 
+    }  */
 }

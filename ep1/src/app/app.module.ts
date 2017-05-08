@@ -11,7 +11,7 @@ import { LoginPage } from '../pages/login/login';
 import { LoginPage2 } from '../pages/login/login2';
 import { CadastroPage } from '../pages/cadastro/cadastro';
 import { AlunoService } from '../services/aluno.service';
-
+import { ProfessorService } from '../services/professor.service';
 import { QRCodeModule } from 'angular2-qrcode';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -41,6 +41,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     StatusBar,
     SplashScreen,
     AlunoService,
+    ProfessorService,
     BarcodeScanner,
     ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

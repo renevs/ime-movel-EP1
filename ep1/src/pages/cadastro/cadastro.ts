@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
+import { ProfessorService } from '../../services/professor.service';
 
 @IonicPage()
 @Component({
@@ -8,25 +10,34 @@ import { AlunoService } from '../../services/aluno.service';
   templateUrl: 'cadastro.html',
 })
 export class CadastroPage {
-    type: string = 'aluno';
-    nusp: string = '';
-    name: string = '';
-    password: string = '';
+  private cadastroGroup: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService) {
+    this.cadastroGroup = this.formBuilder.group({
+      type: ['aluno', Validators.required],
+      nusp: ['', Validators.required],
+      name: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  registrar() {
-    switch(this.type) {
+  cadastroForm() {
+    switch(this.cadastroGroup.value.type) {
       case 'aluno':
-        //let json = this.alunoService.loginAluno(this.nusp, this.password).then(aluno => alert(aluno.success), error => alert(error));  
+        this.alunoService
+          .addAluno(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name)
+          .then(aluno =>  function(aluno) {
+                            if (aluno.success) this.navCtrl.pop();
+                            else alert("Não");
+                          },
+                error => alert(error));
         break;
       case 'professor':
-        alert('Em desenvolvimento');
+        this.professorService.addProfessor(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name).then(professor => alert(professor.success), error => alert(error));
         break;
       default:
         alert('Escolha entre aluno e professor');
-    } 
+    }
   }
 
 }

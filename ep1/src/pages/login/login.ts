@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
+import { ProfessorService } from '../../services/professor.service';
 import { CadastroPage } from '../cadastro/cadastro';
 
 @IonicPage()
@@ -9,26 +11,29 @@ import { CadastroPage } from '../cadastro/cadastro';
 })
 
 export class LoginPage {
-  type: string = 'aluno';
-  nusp: string = '';
-  password: string = '';
-  auto: boolean = false;
+  private loginGroup: FormGroup;
   cadastroPage: any;
 
-  constructor(private alunoService: AlunoService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService, public navCtrl: NavController, public navParams: NavParams) {
     this.cadastroPage = CadastroPage;
+    this.loginGroup = this.formBuilder.group({
+      type: ['aluno', Validators.required],
+      nusp: ['', Validators.required],
+      password: ['', Validators.required],
+      auto:[false]
+    });
   };
 
   login() {
-    switch(this.type) {
+    switch(this.loginGroup.value.type) {
       case 'aluno':
-        let json = this.alunoService.loginAluno(this.nusp, this.password).then(aluno => alert(aluno.success), error => alert(error));  
+        this.alunoService.loginAluno(this.loginGroup.value.nusp, this.loginGroup.value.password).then(aluno => alert(aluno.success), error => alert(error));
         break;
       case 'professor':
-        alert('Em desenvolvimento');
+        this.professorService.loginProfessor(this.loginGroup.value.nusp, this.loginGroup.value.password).then(professor => alert(professor.success), error => alert(error));
         break;
       default:
         alert('Escolha entre aluno e professor');
-    } 
+    }
   }
 }
