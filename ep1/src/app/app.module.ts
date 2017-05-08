@@ -9,6 +9,7 @@ import { HttpModule }    from '@angular/http';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { LoginPage2 } from '../pages/login/login2';
+import { CadastroPage } from '../pages/cadastro/cadastro';
 import { AlunoService } from '../services/aluno.service';
 
 import { QRCodeModule } from 'angular2-qrcode';
@@ -19,7 +20,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   declarations: [
     MyApp,
     LoginPage,
-    LoginPage2
+    LoginPage2,
+    CadastroPage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   entryComponents: [
     MyApp,
     LoginPage,
-    LoginPage2
+    LoginPage2,
+    CadastroPage
   ],
   providers: [
     StatusBar,

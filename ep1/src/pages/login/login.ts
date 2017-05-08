@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlunoService } from '../../services/aluno.service';
+import { CadastroPage } from '../cadastro/cadastro';
 
+@IonicPage()
 @Component({
   templateUrl: 'login.html'
 })
+
 export class LoginPage {
   type: string = 'aluno';
   nusp: string = '';
   password: string = '';
+  auto: boolean = false;
+  cadastroPage: any;
 
-  constructor(private alunoService: AlunoService) {
+  constructor(private alunoService: AlunoService, public navCtrl: NavController, public navParams: NavParams) {
+    this.cadastroPage = CadastroPage;
   };
 
   login() {

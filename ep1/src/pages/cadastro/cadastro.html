@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      Login
-    </ion-title>
+
+  <ion-navbar>
+    <ion-title>Cadastro</ion-title>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content padding>
@@ -11,7 +11,9 @@
         <ion-item>
             <ion-input [(ngModel)]="nusp" placeholder="NUSP" type="text"></ion-input>
         </ion-item>
-
+        <ion-item>
+            <ion-input [(ngModel)]="nome" placeholder="Nome" type="text"></ion-input>
+        </ion-item>
         <ion-item>
             <ion-input [(ngModel)]="password" placeholder="Senha" type="password"></ion-input>
         </ion-item>
@@ -21,13 +23,8 @@
                 <ion-option value="professor">Professor</ion-option>
             </ion-select>
         </ion-item>
-        <ion-item>
-            <ion-label>Conectar automaticamente na próxima vez</ion-label>
-            <ion-toggle [(ngModel)]="auto"></ion-toggle>
-        </ion-item>
     </ion-list>
     <div id="buttons" align="center">
-        <button ion-button (click)="login()">Entrar</button>
-        <button ion-button [navPush]="cadastroPage">Cadastrar</button>    
+        <button ion-button>Registrar</button>    
     </div>
 </ion-content>
