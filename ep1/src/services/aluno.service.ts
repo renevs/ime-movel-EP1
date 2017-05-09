@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Aluno } from '../entities/aluno';
 import { Ep1ApiService } from '../services/ep1-api.service';
 import 'rxjs/add/operator/toPromise';
@@ -10,13 +10,13 @@ export class AlunoService extends Ep1ApiService {
         super();
     }
 
-    /*getAlunos(): Observable<Aluno[]> {
-        return this.http.get(this.apiUrl + 'student').map(this.extractData).catch(this.handleError);
+    getAlunos(): Promise<Aluno[]> {
+        return this.http.get(this.apiUrl + 'student').toPromise().then(this.extractData).catch(this.handleError);
     }
 
-    searchAluno(nusp: string): Observable<Agluno[]> {
-        return this.http.get(this.apiUrl + 'get/${nusp}').map(this.extractData).catch(this.handleError);
-    }*/
+    searchAluno(nusp: string): Promise<Aluno> {
+        return this.http.get(this.apiUrl + 'student/get/${nusp}').toPromise().then(this.extractData).catch(this.handleError);
+    }
 
     loginAluno(nusp: string, pass: string): Promise<any> {
         let body = 'nusp=' + nusp + '&pass=' + pass ;
@@ -27,15 +27,14 @@ export class AlunoService extends Ep1ApiService {
         let body = 'nusp=' + nusp + '&pass=' + pass + '&name=' + name;
         return this.http.post(this.apiUrl + 'student/add', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
     }
-
-    /*
-    updateAluno(nusp: string, pass: string, name: string): Observable<Aluno[]> {
+    
+    updateAluno(nusp: string, pass: string, name: string): Promise<any> {
         let body = 'nusp=' + nusp + '&pass=' + pass + '&name=' + name;
-        return this.http.post(this.apiUrl + 'student/edit', body, this.options).map(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'student/edit', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
     }
 
-    deleteAluno(nusp: string): Observable<Aluno[]> {
+    deleteAluno(nusp: string): Promise<any> {
         let body = 'nusp=' + nusp;
-        return this.http.post(this.apiUrl + 'student/delete', body, this.options).map(this.extractData).catch(this.handleError);
-    }  */
+        return this.http.post(this.apiUrl + 'student/delete', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+    }  
 }

@@ -26,7 +26,7 @@ export class CadastroPage {
       case 'aluno':
         this.alunoService
           .addAluno(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name)
-          .then(aluno =>  function(aluno) {
+          .then(aluno =>  {
                             if (aluno.success) this.navCtrl.pop();
                             else alert("Não");
                           },
