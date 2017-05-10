@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
 import { ProfessorService } from '../../services/professor.service';
 import { CadastroPage } from '../cadastro/cadastro';
+import { SeminarioPage } from '../seminario/seminario';
 import { Storage } from '@ionic/storage';
 
 @IonicPage()
@@ -14,9 +15,11 @@ import { Storage } from '@ionic/storage';
 export class LoginPage {
   private loginGroup: FormGroup;
   cadastroPage: any;
+  seminarioPage: any;
 
   constructor(private storage: Storage, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService, public navCtrl: NavController, public navParams: NavParams) {
     this.cadastroPage = CadastroPage;
+    this.seminarioPage = SeminarioPage;
     this.loginGroup = this.formBuilder.group({
       type: ['aluno', Validators.required],
       nusp: ['', Validators.required],
@@ -28,13 +31,39 @@ export class LoginPage {
   login() {
     switch(this.loginGroup.value.type) {
       case 'aluno':
-        this.alunoService.loginAluno(this.loginGroup.value.nusp, this.loginGroup.value.password).then(aluno => alert(aluno.success), error => alert(error));
+        this.alunoService
+          .loginAluno(this.loginGroup.value.nusp, this.loginGroup.value.password)
+          .then(aluno =>  {
+                            if (aluno.success) {
+                              this.loadSeminarioPage();
+                            }
+                            else alert("Falha Login");
+                          } ,
+                error => alert(error));
         break;
       case 'professor':
-        this.professorService.loginProfessor(this.loginGroup.value.nusp, this.loginGroup.value.password).then(professor => alert(professor.success), error => alert(error));
+        this.professorService
+          .loginProfessor(this.loginGroup.value.nusp, this.loginGroup.value.password)
+          .then(professor => {
+                              if (professor.success) {
+                                this.loadSeminarioPage();
+                              }
+                              else alert("Falha Login");
+                            } ,
+                error => alert(error));
         break;
       default:
         alert('Escolha entre aluno e professor');
     }
+  }
+
+  private loadSeminarioPage () {
+    this.storage.ready().then(() => {
+      this.storage.set('nusp', this.loginGroup.value.nusp);
+      this.storage.set('type', this.loginGroup.value.type);
+      this.storage.set('password', this.loginGroup.value.password);
+      this.storage.set('auto', this.loginGroup.value.auto);
+      this.navCtrl.push(this.seminarioPage);
+    });
   }
 }
