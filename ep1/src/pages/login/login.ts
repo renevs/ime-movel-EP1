@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
 import { ProfessorService } from '../../services/professor.service';
 import { CadastroPage } from '../cadastro/cadastro';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -14,7 +15,7 @@ export class LoginPage {
   private loginGroup: FormGroup;
   cadastroPage: any;
 
-  constructor(private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private storage: Storage, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService, public navCtrl: NavController, public navParams: NavParams) {
     this.cadastroPage = CadastroPage;
     this.loginGroup = this.formBuilder.group({
       type: ['aluno', Validators.required],

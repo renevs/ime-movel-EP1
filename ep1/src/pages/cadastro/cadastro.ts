@@ -33,7 +33,13 @@ export class CadastroPage {
                 error => alert(error));
         break;
       case 'professor':
-        this.professorService.addProfessor(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name).then(professor => alert(professor.success), error => alert(error));
+        this.professorService
+          .addProfessor(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name)
+          .then(professor =>  {
+                                if (professor.success) this.navCtrl.pop();
+                                else alert("Não");
+                              },
+                error => alert(error));
         break;
       default:
         alert('Escolha entre aluno e professor');
