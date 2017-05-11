@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ProfessorService } from '../../services/professor.service';
+import { SeminarioService } from '../../services/seminario.service';
 import { Seminario } from '../../entities/seminario';
+
 
 @IonicPage()
 @Component({
@@ -11,12 +12,13 @@ import { Seminario } from '../../entities/seminario';
 export class SeminarioPage {
   seminarios: Seminario[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private professorService: ProfessorService) {
-    
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private seminarioService: SeminarioService) {
+    this.seminarioService
+      .getSeminario()
+      .then(seminario =>  {
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Seminario');
+                          } ,
+          error => alert(error));
   }
 
 }
