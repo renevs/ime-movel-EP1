@@ -11,6 +11,9 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { LoginPage2 } from '../pages/login/login2';
 import { CadastroPage } from '../pages/cadastro/cadastro';
+import { SeminarioPage } from '../pages/seminario/seminario';
+import { AlterarPage } from '../pages/alterar/alterar';
+
 import { AlunoService } from '../services/aluno.service';
 import { ProfessorService } from '../services/professor.service';
 import { SeminarioService } from '../services/seminario.service';
@@ -24,7 +27,9 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     MyApp,
     LoginPage,
     LoginPage2,
-    CadastroPage
+    CadastroPage,
+    AlterarPage,
+    SeminarioPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,9 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     MyApp,
     LoginPage,
     LoginPage2,
-    CadastroPage
+    CadastroPage,
+    AlterarPage,
+    SeminarioPage
   ],
   providers: [
     StatusBar,
@@ -50,6 +57,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     PresencaService,
     BarcodeScanner,
     ScreenOrientation,
+    IonicStorageModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

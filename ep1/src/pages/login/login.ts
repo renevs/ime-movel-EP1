@@ -28,6 +28,27 @@ export class LoginPage {
     });
   };
 
+  ionViewWillEnter() {
+    this.storage.ready().then(() => {
+      this.storage.get('auto').then((val) => {
+        this.loginGroup.value.auto = (val !== null) ? val : false;
+        if (this.loginGroup.value.auto) {
+          Promise.all([
+            this.storage.get('nusp').then((val) => {
+              this.loginGroup.value.nusp = (val !== null) ? val : '';
+            }),
+            this.storage.get('password').then((val) => {
+              this.loginGroup.value.password = (val !== null) ? val : '';
+            }),
+            this.storage.get('type').then((val) => {
+              this.loginGroup.value.type = (val !== null) ? val : 'aluno';
+            })
+          ]).then(value =>  { this.login() });
+        }
+      })
+    });
+  }
+
   login() {
     switch(this.loginGroup.value.type) {
       case 'aluno':

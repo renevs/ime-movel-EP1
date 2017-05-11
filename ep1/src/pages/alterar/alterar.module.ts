@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Alterar } from './alterar';
+import { AlterarPage } from './alterar';
 
 @NgModule({
   declarations: [
-    Alterar,
+    AlterarPage,
   ],
   imports: [
-    IonicPageModule.forChild(Alterar),
+    IonicPageModule.forChild(AlterarPage),
   ],
   exports: [
-    Alterar
+    AlterarPage
   ]
 })
 export class AlterarModule {}

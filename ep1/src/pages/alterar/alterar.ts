@@ -12,7 +12,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-alterar',
   templateUrl: 'alterar.html',
 })
-export class Alterar {
+export class AlterarPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
