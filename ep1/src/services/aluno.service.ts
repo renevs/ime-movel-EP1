@@ -11,30 +11,30 @@ export class AlunoService extends Ep1ApiService {
     }
 
     getAlunos(): Promise<Aluno[]> {
-        return this.http.get(this.apiUrl + 'student').toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.get(this.apiUrl + 'student').toPromise().then(this.extractJsonData).catch(this.handleError);
     }
 
     searchAluno(nusp: string): Promise<Aluno> {
-        return this.http.get(this.apiUrl + 'student/get/${nusp}').toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.get(this.apiUrl + 'student/get/${nusp}').toPromise().then(this.extractJsonData).catch(this.handleError);
     }
 
     loginAluno(nusp: string, pass: string): Promise<any> {
         let body = 'nusp=' + nusp + '&pass=' + pass ;
-        return this.http.post(this.apiUrl + 'login/student', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'login/student', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }
 
     addAluno(nusp: string, pass: string, name: string): Promise<any> {
         let body = 'nusp=' + nusp + '&pass=' + pass + '&name=' + name;
-        return this.http.post(this.apiUrl + 'student/add', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'student/add', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }
     
     updateAluno(nusp: string, pass: string, name: string): Promise<any> {
         let body = 'nusp=' + nusp + '&pass=' + pass + '&name=' + name;
-        return this.http.post(this.apiUrl + 'student/edit', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'student/edit', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }
 
     deleteAluno(nusp: string): Promise<any> {
         let body = 'nusp=' + nusp;
-        return this.http.post(this.apiUrl + 'student/delete', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'student/delete', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }  
 }

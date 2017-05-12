@@ -11,16 +11,16 @@ export class PresencaService extends Ep1ApiService{
 
     submitPresenca(nusp: string, seminar_id: string): Promise<any> {
         let body = 'nusp=' + nusp + '&seminar_id=' + seminar_id;
-        return this.http.post(this.apiUrl + 'attendence/submit', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'attendence/submit', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }
 
     listAlunos(seminar_id: string): Promise<any> {
         let body = 'seminar_id=' + seminar_id;
-        return this.http.post(this.apiUrl + 'attendence/listStudents', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'attendence/listStudents', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }
 
     listSeminarios(nusp: string): Promise<any> {
         let body = 'nusp=' + nusp;
-        return this.http.post(this.apiUrl + 'attendence/listSeminars', body, this.options).toPromise().then(this.extractData).catch(this.handleError);
+        return this.http.post(this.apiUrl + 'attendence/listSeminars', body, this.options).toPromise().then(this.extractJson).catch(this.handleError);
     }  
 }

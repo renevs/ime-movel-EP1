@@ -7,9 +7,16 @@ export class Ep1ApiService {
     protected apiUrl = 'http://207.38.82.139:8001/';
     protected options = new RequestOptions({ headers: this.headers });
 
-    protected extractData(res: Response) {
+    protected extractJson(res: Response) {
         return res.json() || { };
     }
+
+
+    protected extractJsonData(res: Response) {
+        return res.json().data || { };
+    }
+
+
     // Melhorar    
     protected handleError (error: Response | any) {
         let errMsg: string;

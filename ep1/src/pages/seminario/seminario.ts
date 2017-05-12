@@ -15,8 +15,8 @@ export class SeminarioPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private seminarioService: SeminarioService) {
     this.seminarioService
       .getSeminario()
-      .then(seminario =>  {
-
+      .then(seminarios => {
+                            this.seminarios = seminarios;
                           } ,
           error => alert(error));
   }

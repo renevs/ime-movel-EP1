@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CadastroPage } from '../cadastro/cadastro';
 
-/**
- * Generated class for the Menu page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-menu',
@@ -14,11 +9,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Menu {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  seminarioPage: any = CadastroPage;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Menu');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
 }

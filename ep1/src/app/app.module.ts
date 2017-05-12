@@ -13,6 +13,7 @@ import { LoginPage2 } from '../pages/login/login2';
 import { CadastroPage } from '../pages/cadastro/cadastro';
 import { SeminarioPage } from '../pages/seminario/seminario';
 import { AlterarPage } from '../pages/alterar/alterar';
+import { Menu } from '../pages/menu/menu';
 
 import { AlunoService } from '../services/aluno.service';
 import { ProfessorService } from '../services/professor.service';
@@ -29,7 +30,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     LoginPage2,
     CadastroPage,
     AlterarPage,
-    SeminarioPage
+    SeminarioPage,
+    Menu
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     LoginPage2,
     CadastroPage,
     AlterarPage,
-    SeminarioPage
+    SeminarioPage,
+    Menu
   ],
   providers: [
     StatusBar,

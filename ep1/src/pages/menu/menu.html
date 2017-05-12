@@ -1,12 +1,22 @@
-<ion-header>
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <button ion-item>
+        Seminários
+      </button>
+      <button ion-item>
+        Alterar Cadastro
+      </button>
+      <button ion-item>
+        Logout
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-  <ion-navbar>
-    <ion-title>menu</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<ion-nav id="nav" #content [root]="seminarioPage"></ion-nav>
