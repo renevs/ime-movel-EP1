@@ -11,7 +11,7 @@ import { Seminario } from '../../entities/seminario';
 })
 export class SeminarioPage {
   seminarios: Seminario[];
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private seminarioService: SeminarioService) {
     this.seminarioService
       .getSeminario()

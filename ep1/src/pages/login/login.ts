@@ -16,7 +16,7 @@ export class LoginPage {
   private loginGroup: FormGroup;
   cadastroPage: any;
   seminarioPage: any;
-
+  
   constructor(private storage: Storage, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService, public navCtrl: NavController, public navParams: NavParams) {
     this.cadastroPage = CadastroPage;
     this.seminarioPage = SeminarioPage;
@@ -84,7 +84,7 @@ export class LoginPage {
       this.storage.set('type', this.loginGroup.value.type);
       this.storage.set('password', this.loginGroup.value.password);
       this.storage.set('auto', this.loginGroup.value.auto);
-      this.navCtrl.push(this.seminarioPage).then(() => { 
+      this.navCtrl.push(this.seminarioPage).then(() => {
             const index = this.navCtrl.getActive().index;
             this.navCtrl.remove(0, index);
             this.navCtrl.setRoot(this.seminarioPage);
