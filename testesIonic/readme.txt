@@ -66,4 +66,5 @@ npm install angular2-qrcode --save
 ionic plugin add --save cordova-plugin-screen-orientation
 npm install --save @ionic-native/screen-orientation
 
+criar o diretório www ao instalar
 
