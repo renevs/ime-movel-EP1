@@ -23,7 +23,7 @@ export class LoginPage {
     this.loginGroup = this.formBuilder.group({
       type: ['aluno', Validators.required],
       nusp: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       auto:[false]
     });
   };
@@ -80,15 +80,14 @@ export class LoginPage {
 
   private loadSeminarioPage () {
     this.storage.ready().then(() => {
-      this.storage.set('nusp', this.loginGroup.value.nusp);
-      this.storage.set('type', this.loginGroup.value.type);
-      this.storage.set('password', this.loginGroup.value.password);
-      this.storage.set('auto', this.loginGroup.value.auto);
-      this.navCtrl.push(this.seminarioPage).then(() => {
-            const index = this.navCtrl.getActive().index;
-            this.navCtrl.remove(0, index);
-            this.navCtrl.setRoot(this.seminarioPage);
-      });
+      Promise.all([
+        this.storage.set('nusp', this.loginGroup.value.nusp),
+        this.storage.set('type', this.loginGroup.value.type),
+        this.storage.set('password', this.loginGroup.value.password),
+        this.storage.set('auto', this.loginGroup.value.auto)
+      ]).then(() => {
+        this.navCtrl.setRoot(this.seminarioPage, { nusp: this.loginGroup.value.nusp, type: this.loginGroup.value.type });
+      })
     });
   }
 }

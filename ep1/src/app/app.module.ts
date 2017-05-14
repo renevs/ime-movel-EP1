@@ -9,10 +9,10 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
-import { LoginPage2 } from '../pages/login/login2';
 import { CadastroPage } from '../pages/cadastro/cadastro';
 import { SeminarioPage } from '../pages/seminario/seminario';
 import { AlterarPage } from '../pages/alterar/alterar';
+import { SeminarioDetalhesPage } from '../pages/seminario-detalhes/seminario-detalhes';
 
 import { AlunoService } from '../services/aluno.service';
 import { ProfessorService } from '../services/professor.service';
@@ -26,10 +26,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   declarations: [
     MyApp,
     LoginPage,
-    LoginPage2,
     CadastroPage,
     AlterarPage,
-    SeminarioPage
+    SeminarioPage,
+    SeminarioDetalhesPage
   ],
   imports: [
     BrowserModule,
@@ -43,10 +43,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   entryComponents: [
     MyApp,
     LoginPage,
-    LoginPage2,
     CadastroPage,
     AlterarPage,
-    SeminarioPage
+    SeminarioPage,
+    SeminarioDetalhesPage
   ],
   providers: [
     StatusBar,

@@ -17,7 +17,7 @@ export class CadastroPage {
       type: ['aluno', Validators.required],
       nusp: ['', Validators.required],
       name: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
     });
   }
 

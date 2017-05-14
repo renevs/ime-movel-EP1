@@ -15,7 +15,7 @@ export class SeminarioService extends Ep1ApiService{
     }
 
     searchSeminario(id: string): Promise<Seminario> {
-        return this.http.get(this.apiUrl + 'seminar/get/${id}').toPromise().then(this.extractJsonData).catch(this.handleError);
+        return this.http.get(this.apiUrl + 'seminar/get/' + id).toPromise().then(this.extractJsonData).catch(this.handleError);
     }
 
     addSeminario(name: string): Promise<any> {

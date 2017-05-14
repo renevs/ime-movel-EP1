@@ -15,7 +15,7 @@ export class AlunoService extends Ep1ApiService {
     }
 
     searchAluno(nusp: string): Promise<Aluno> {
-        return this.http.get(this.apiUrl + 'student/get/${nusp}').toPromise().then(this.extractJsonData).catch(this.handleError);
+        return this.http.get(this.apiUrl + 'student/get/' + nusp).toPromise().then(this.extractJsonData).catch(this.handleError);
     }
 
     loginAluno(nusp: string, pass: string): Promise<any> {

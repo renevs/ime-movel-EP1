@@ -15,7 +15,7 @@ export class ProfessorService extends Ep1ApiService {
     }
 
     searchProfessor(nusp: string): Promise<Professor> {
-        return this.http.get(this.apiUrl + 'teacher/get/${nusp}').toPromise().then(this.extractJsonData).catch(this.handleError);
+        return this.http.get(this.apiUrl + 'teacher/get/' + nusp).toPromise().then(this.extractJsonData).catch(this.handleError);
     }
 
     loginProfessor(nusp: string, pass: string): Promise<any> {
