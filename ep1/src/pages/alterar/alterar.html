@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Editar Conta</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="editarGroup" (ngSubmit)="editarForm()">
+    <ion-list>
+        <ion-item>
+            <ion-input formControlName="nusp" placeholder="NUSP" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input formControlName="name" placeholder="Nome" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input formControlName="password" placeholder="Senha" type="password"></ion-input>
+        </ion-item>
+    </ion-list>
+    <div id="buttons" align="center">
+        <button ion-button type="submit" [disabled]="!editarGroup.valid">Concluir</button>
+    </div>
+  </form>
+</ion-content>

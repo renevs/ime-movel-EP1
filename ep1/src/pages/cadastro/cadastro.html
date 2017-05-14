@@ -1,18 +1,20 @@
 <ion-header>
+
   <ion-navbar color="primary">
-    <ion-title>
-      Login
-    </ion-title>
+    <ion-title>Cadastro</ion-title>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="loginGroup" (ngSubmit)="login()">
+  <form [formGroup]="cadastroGroup" (ngSubmit)="cadastroForm()">
     <ion-list>
         <ion-item>
             <ion-input formControlName="nusp" placeholder="NUSP" type="text"></ion-input>
         </ion-item>
-
+        <ion-item>
+            <ion-input formControlName="name" placeholder="Nome" type="text"></ion-input>
+        </ion-item>
         <ion-item>
             <ion-input formControlName="password" placeholder="Senha" type="password"></ion-input>
         </ion-item>
@@ -22,14 +24,9 @@
                 <ion-option value="professor">Professor</ion-option>
             </ion-select>
         </ion-item>
-        <ion-item>
-            <ion-label>Conectar automaticamente na próxima vez</ion-label>
-            <ion-toggle formControlName="auto"></ion-toggle>
-        </ion-item>
     </ion-list>
     <div id="buttons" align="center">
-        <button ion-button [disabled]="!loginGroup.valid" type="submit">Entrar</button>
-        <button ion-button [navPush]="cadastroPage">Cadastrar</button>
+        <button ion-button type="submit" [disabled]="!cadastroGroup.valid">Registrar</button>
     </div>
   </form>
 </ion-content>

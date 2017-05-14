@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Seminarios</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let seminario of seminarios">
+    <ion-card (click)="goToDetails(seminario)">
+      <ion-card-header>
+        {{ seminario.id }}
+       </ion-card-header>
+      <ion-card-content>
+        {{ seminario.name }}
+      </ion-card-content>
+    </ion-card>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab right bottom *ngIf="type === 'professor'"> 
+  <button ion-fab color="danger" (click)="addSeminario()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
