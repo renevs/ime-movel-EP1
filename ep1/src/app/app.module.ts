@@ -9,10 +9,6 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
-import { CadastroPage } from '../pages/cadastro/cadastro';
-import { SeminarioPage } from '../pages/seminario/seminario';
-import { AlterarPage } from '../pages/alterar/alterar';
-import { SeminarioDetalhesPage } from '../pages/seminario-detalhes/seminario-detalhes';
 
 import { AlunoService } from '../services/aluno.service';
 import { ProfessorService } from '../services/professor.service';
@@ -25,11 +21,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
-    CadastroPage,
-    AlterarPage,
-    SeminarioPage,
-    SeminarioDetalhesPage
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -42,11 +34,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage,
-    CadastroPage,
-    AlterarPage,
-    SeminarioPage,
-    SeminarioDetalhesPage
+    LoginPage
   ],
   providers: [
     StatusBar,

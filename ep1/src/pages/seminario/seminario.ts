@@ -19,7 +19,7 @@ export class SeminarioPage {
 
   constructor(private alertCtrl: AlertController, private storage: Storage, public events: Events, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private seminarioService: SeminarioService, private alunoService: AlunoService, private professorService: ProfessorService) {
     this.getSeminarios();
-    this.getUserName(this.type);            
+    this.getUserName(this.type);
   }
 
   getSeminarios() {
@@ -41,7 +41,7 @@ export class SeminarioPage {
         break;
       default:
         //TODO
-    } 
+    }
   }
 
   setMenuCredentials(nome: string) {
@@ -49,7 +49,7 @@ export class SeminarioPage {
         this.storage.set('name', nome).then(() => this.events.publish('user:getNomeNusp', nome, this.navParams.get('nusp')))
     });
   }
-  
+
   addSeminario() {
       let prompt = this.alertCtrl.create({
         title: "Adicionar um Seminário",
@@ -78,11 +78,10 @@ export class SeminarioPage {
         ]
       });
       prompt.present();
-  }   
+  }
 
   goToDetails(seminario: Seminario) {
-    // this.navCtrl.push(SeminarioDetalhesPage, {
-    this.navCtrl.push("DetalharSeminario", {
+    this.navCtrl.push(SeminarioDetalhesPage, {
       type: this.type,
       seminarioId: seminario.id,
       seminarioName: seminario.name

@@ -28,13 +28,14 @@
 
   <ion-card>
     <ion-card-content *ngIf="type === 'professor'">
-        <button ion-button (click)="generateQRCode()">Gerar Seminário QRCode</button>
-        <button ion-button (click)="listenBluetooth()">Escutar Dispositivos Bluetooth</button>
+        <button ion-button (click)="projectQRCode()">Gerar Seminário QRCode</button>
+        <button ion-button *ngIf="!isListening" (click)="listenData($event)">Escutar Dispositivos Bluetooth</button>
+        <button ion-button *ngIf="isListening" (click)="stopListenData($event)">Parar de receber confirmação</button>
     </ion-card-content>
 
     <ion-card-content *ngIf="type === 'aluno'">
-        <button ion-button (click)="confirmQRCode()">Confirmar Presença via QRCode</button>
-        <button ion-button (click)="confirmBluetooth()">Confirmar Presença via Bluetooth</button>
+        <button ion-button (click)="confirmarQRCode()">Confirmar Presença via QRCode</button>
+        <button ion-button (click)="confirmarbluetooth()">Confirmar Presença via Bluetooth</button>
     </ion-card-content>
   </ion-card>
 
