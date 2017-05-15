@@ -1,35 +1,47 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      Login
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
   <form [formGroup]="loginGroup" (ngSubmit)="login()">
-    <ion-list>
-        <ion-item>
-            <ion-input formControlName="nusp" placeholder="NUSP" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-            <ion-input formControlName="password" placeholder="Senha" type="password"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-select formControlName="type" interface="popover">
-                <ion-option value="aluno" selected>Aluno</ion-option>
-                <ion-option value="professor">Professor</ion-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Conectar automaticamente na próxima vez</ion-label>
-            <ion-toggle formControlName="auto"></ion-toggle>
-        </ion-item>
-    </ion-list>
-    <div id="buttons" align="center">
-        <button ion-button [disabled]="!loginGroup.valid" type="submit">Entrar</button>
-        <button ion-button [navPush]="cadastroPage">Cadastrar</button>
-    </div>
+    <ion-card class="customCard">
+      <ion-card-header>
+        <ion-title class="titleText">Bem-vindo ao IME Seminario</ion-title>
+        <ion-item-divider color="light" class="itemDivider"></ion-item-divider>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+            <ion-item class="customCard">
+                <ion-input #nuspInput formControlName="nusp" placeholder="NUSP" type="text"></ion-input>
+            </ion-item >
+            <ion-item class="customCard">
+                <ion-input #senhaInput formControlName="password" placeholder="Senha" type="password"></ion-input>
+            </ion-item>
+            <ion-item class="customCard">
+                <ion-select style="max-width: 100% !important;" formControlName="type" interface="popover">
+                    <ion-option value="aluno" selected>Aluno</ion-option>
+                    <ion-option value="professor">Professor</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item-divider color="light" class="itemDivider"></ion-item-divider>
+          </ion-list>
+        </ion-card-content>
+        <ion-card-content>
+          <ion-list>
+            <ion-item class="customCard">
+                <ion-label class="labelText">Conectar automaticamente na próxima vez</ion-label>
+                <ion-toggle formControlName="auto"></ion-toggle>
+            </ion-item>
+            <ion-item class="customCard">
+              <button ion-button block color="light-darker" [disabled]="!loginGroup.valid" type="submit">Entrar</button>
+            </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="customCard">
+      <ion-card-header>
+        <ion-title>Não tem uma conta?</ion-title>
+        <ion-item-divider color="light" class="itemDivider"></ion-item-divider>
+      </ion-card-header>
+      <ion-card-content>
+        <button ion-button block color="light-darker" [navPush]="cadastroPage">Registrar</button>
+      </ion-card-content>
+    </ion-card>
   </form>
 </ion-content>

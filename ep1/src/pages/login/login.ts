@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
@@ -9,14 +9,17 @@ import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
+  selector: 'page-login',
   templateUrl: 'login.html'
 })
 
 export class LoginPage {
+  @ViewChild('nuspInput') nuspInput;
+  @ViewChild('senhaInput') senhaInput;
   private loginGroup: FormGroup;
   cadastroPage: any;
   seminarioPage: any;
-  
+
   constructor(private storage: Storage, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService, public navCtrl: NavController, public navParams: NavParams) {
     this.cadastroPage = CadastroPage;
     this.seminarioPage = SeminarioPage;
@@ -27,6 +30,13 @@ export class LoginPage {
       auto:[false]
     });
   };
+
+  ionViewLoaded() {
+     setTimeout(() => {
+       this.senhaInput.setFocus();
+       this.nuspInput.setFocus();
+     },150);
+  }
 
   ionViewWillEnter() {
     this.storage.ready().then(() => {
