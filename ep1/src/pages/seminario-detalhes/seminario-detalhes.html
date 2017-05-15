@@ -16,7 +16,13 @@
       {{ seminarioName }}
       </ion-card-header>
     <ion-card-content>
-      TODO
+      <ion-list>
+        <ion-item *ngFor="let aluno of alunos">
+            <ion-label>
+                {{ aluno.nusp }} - {{ aluno.name }}
+            </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
