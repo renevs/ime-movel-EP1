@@ -9,6 +9,8 @@ export const ACTION = 'action';
 export const RESULT = 'return';
 export const MESSAGE = 'message';
 export const OK_MESSAGE = 'OK';
+export const ERRO_MESSAGE = 'ERRO';
+
 
 export const VALIDA_NUSP = 'validaNUSP';
 

@@ -51,7 +51,8 @@ export class SeminarioPage {
   }
 
   goToDetails(seminario: Seminario) {
-    this.navCtrl.push(SeminarioDetalhesPage, {
+    // this.navCtrl.push(SeminarioDetalhesPage, {
+    this.navCtrl.push("DetalharSeminario", {
       type: this.type,
       seminarioId: seminario.id,
       seminarioName: seminario.name

@@ -15,20 +15,20 @@ import {Platform} from 'ionic-angular';
   templateUrl: 'qrcode-seminario.html',
 })
 export class QrcodeSeminario {
-  idSeminario:number;
+  idSeminario:string;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public platform:Platform, private screenOrientation: ScreenOrientation) {
     this.screenOrientation.lock( this.screenOrientation.ORIENTATIONS.PORTRAIT );
     this.idSeminario = navParams.get('idSeminario');
-    console.log('Seminario: '+ this.idSeminario );
+    // console.log('Seminario: '+ this.idSeminario );
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad QrcodeSeminario');
+    // console.log('ionViewDidLoad QrcodeSeminario');
   }
   qrCodeSize() {
-    return this.platform.width()- 10;
+    return this.platform.width()*0.95;
   }
   ionViewWillLeave() {
     this.screenOrientation.unlock();
