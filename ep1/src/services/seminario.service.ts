@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Seminario } from '../entities/seminario';
 import { Ep1ApiService } from '../services/ep1-api.service';
+import { UtilsService } from './utils.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class SeminarioService extends Ep1ApiService{
-    constructor(private http: Http) {
-        super();
+    constructor(private http: Http, public utilsService: UtilsService) {
+        super(utilsService);
     }
 
     getSeminario(): Promise<Seminario[]> {

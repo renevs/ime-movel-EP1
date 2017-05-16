@@ -1,8 +1,7 @@
 {
-  "name": "ionic-hello-world",
-  "version": "0.0.0",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "ep1-ime-seminar",
+  "version": "1.0.0",
+  "author": "Aderley, Rene, Ronaldo",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
@@ -62,5 +61,5 @@
       "locator": "android"
     }
   ],
-  "description": "ep1: An Ionic project"
+  "description": "EP1: IME Seminar"
 }

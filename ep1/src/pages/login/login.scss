@@ -1,18 +1,11 @@
 page-login {
-  .customCard{
-    background-color: color($colors, light, base);
+  .selectCustom {
+    max-width: 98% !important;
+    width: 98% !important;
+    padding: 25px 8px 0px 8px !important;
   }
 
-  .itemDivider {
-    border-color: color($colors, dark, base);
-    border-width: 2px;
-  }
-
-  .labelText {
-    white-space: inherit;
-  }
-
-  .toolbar-title-md {
-    font-size: 1.8rem !important;
+  ion-item, ion-card {
+    background-color: color($colors, light, base) !important;; 
   }
 }

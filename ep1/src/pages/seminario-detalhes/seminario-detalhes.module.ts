@@ -9,6 +9,7 @@ import { QRCodeModule } from 'angular2-qrcode';
   ],
   imports: [
     IonicPageModule.forChild(SeminarioDetalhesPage),
+    QRCodeModule,
   ],
   exports: [
     SeminarioDetalhesPage

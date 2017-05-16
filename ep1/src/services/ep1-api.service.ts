@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Headers, Response, RequestOptions } from '@angular/http';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class Ep1ApiService {
     protected headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     protected apiUrl = 'http://207.38.82.139:8001/';
     protected options = new RequestOptions({ headers: this.headers });
+
+    constructor(public utilsService: UtilsService) {
+
+    }
 
     protected extractJson(res: Response) {
         return res.json() || { };
@@ -15,9 +20,7 @@ export class Ep1ApiService {
     protected extractJsonData(res: Response) {
         return res.json().data || { };
     }
-
-
-    // Melhorar    
+    
     protected handleError (error: Response | any) {
         let errMsg: string;
             if (error instanceof Response) {
@@ -27,7 +30,7 @@ export class Ep1ApiService {
             } else {
                 errMsg = error.message ? error.message : error.toString();
             }
-            console.error(errMsg);
+            this.utilsService.presentToast('Erro na chamada de serviço: ' + errMsg);
         return Promise.reject(errMsg);
     }
 }

@@ -18,6 +18,7 @@ import { AlunoService } from '../services/aluno.service';
 import { ProfessorService } from '../services/professor.service';
 import { SeminarioService } from '../services/seminario.service';
 import { PresencaService } from '../services/presenca.service';
+import { UtilsService } from '../services/utils.service';
 import { QRCodeModule } from 'angular2-qrcode';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -55,6 +56,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     ProfessorService,
     SeminarioService,
     PresencaService,
+    UtilsService,
     BarcodeScanner,
     ScreenOrientation,
     IonicStorageModule,

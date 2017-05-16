@@ -2,6 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { PresencaService } from '../../services/presenca.service';
 import { AlunoService } from '../../services/aluno.service';
+import { UtilsService } from '../../services/utils.service';
 import { Aluno } from '../../entities/aluno';
 import * as BT from '../../app/bluetoothConstants';
 
@@ -19,7 +20,7 @@ export class SeminarioDetalhesPage {
   type: string = this.navParams.get('type');
   alunos: Array<Aluno> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alunoService: AlunoService, private presencaService: PresencaService, private zone: NgZone, public platform: Platform) {
+  constructor(private utilsService: UtilsService, public navCtrl: NavController, public navParams: NavParams, private alunoService: AlunoService, private presencaService: PresencaService, private zone: NgZone, public platform: Platform) {
     this.presencaService.listAlunos(this.seminarioId).then((presenca) => {
       for (let p of presenca.data) {
         this.alunoService.searchAluno(p.student_nusp).then((aluno) => this.alunos.push(aluno));
@@ -38,7 +39,7 @@ export class SeminarioDetalhesPage {
                     // console.log( "erro" + JSON.stringify(error) );
                     if ( error[ BT.ACTION ]) {
                         if ( error[ BT.ACTION ] == BT.LISTEN ) {
-                            alert( "Escuta interrompida!" );
+                            this.utilsService.presentToast( "Escuta interrompida!" );
                             this.stopServer();
                         }
                     }
@@ -195,7 +196,7 @@ export class SeminarioDetalhesPage {
   ligaBluetoothAluno() {
      cordova.plugins.usp.blueToothUniversal.enable( ( results ) =>
                 {
-                    this.navCtrl.setRoot( "SelecionarDispositivo" );
+                    this.navCtrl.push( "SelecionarDispositivo" );
                 },
                 (error) => {
                     console.log( "Bluetooth não ligado!" );
@@ -209,7 +210,7 @@ export class SeminarioDetalhesPage {
     confirmarbluetooth() {
         cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>
                   {
-                      this.navCtrl.setRoot( "SelecionarDispositivo" );
+                      this.navCtrl.push( "SelecionarDispositivo" );
                   },
                   (error) => {
                       this.ligaBluetoothAluno();
@@ -218,6 +219,6 @@ export class SeminarioDetalhesPage {
 
     }
     confirmarQRCode(  event ) {
-         this.navCtrl.setRoot( "ConfirmarQrcode" );
+         this.navCtrl.push( "ConfirmarQrcode" );
     }
 }

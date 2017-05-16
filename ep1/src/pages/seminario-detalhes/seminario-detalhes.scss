@@ -1,3 +1,6 @@
 page-seminario-detalhes {
 
+  ion-item, ion-card {
+    background-color: color($colors, light, base) !important;
+  }
 }
