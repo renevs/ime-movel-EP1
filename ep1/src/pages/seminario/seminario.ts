@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, MenuController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Events, MenuController, AlertController } from 'ionic-angular';
 import { SeminarioService } from '../../services/seminario.service';
 import { ProfessorService } from '../../services/professor.service';
 import { AlunoService } from '../../services/aluno.service';
@@ -8,7 +8,6 @@ import { Seminario } from '../../entities/seminario';
 import { SeminarioDetalhesPage } from '../seminario-detalhes/seminario-detalhes';
 import { Storage } from '@ionic/storage';
 
-@IonicPage()
 @Component({
   selector: 'page-seminario',
   templateUrl: 'seminario.html',

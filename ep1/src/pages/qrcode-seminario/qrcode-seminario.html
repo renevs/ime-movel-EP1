@@ -1,12 +1,17 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>qrcode-seminario</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-<qr-code value="{{idSeminario}}" size="{{qrCodeSize()}}"></qr-code>
+<ion-content padding text-center>
+  <div>
+       QRCode gerado! Aproxime os dispositivos para lê-lo.
+  </div>
+  <div>
+      <qr-code value="{{idSeminario}}" size="{{qrCodeSize()}}"></qr-code>
+  </div>
 </ion-content>

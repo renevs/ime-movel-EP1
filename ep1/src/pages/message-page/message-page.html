@@ -1,5 +1,5 @@
 <!--
-  Generated template for the ConfirmarQrcode page.
+  Generated template for the MessagePage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -10,12 +10,17 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Confirmar QRCode</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-    Lendo QRCode...
-</ion-content>
+<ion-content text-center>
+  <ion-grid>
+        <ion-row>
+              <ion-col>
+                    {{msg}}
+              </ion-col>
+        </ion-row>
+  </ion-grid>
+ </ion-content>

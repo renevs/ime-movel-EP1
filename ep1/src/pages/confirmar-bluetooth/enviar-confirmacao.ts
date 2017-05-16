@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import {  NgZone } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { UtilsService } from '../../services/utils.service';
 
 
 import * as BT from '../../app/bluetoothConstants';
@@ -24,7 +25,8 @@ export class EnviarConfirmacao {
   isOk:boolean;
   mobileAddress:any;
   nusp:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public zone: NgZone, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public zone: NgZone, private storage: Storage, 
+    private utilsService: UtilsService, private menu: MenuController) {
     this.isSending = true;
     this.isOk = false;
     this.mobileAddress = navParams.get('deviceAddress');
@@ -34,7 +36,7 @@ export class EnviarConfirmacao {
   }
 
   doSubscribe() {
-    console.log('doSubscribe');
+    // console.log('doSubscribe');
     cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
           this.zone.run( ()=>{
             // console.log( JSON.stringify(data));
@@ -90,11 +92,11 @@ export class EnviarConfirmacao {
     cordova.plugins.usp.blueToothUniversal.write(this.mobileAddress, '{"'+BT.VALIDA_NUSP+'":"' + this.nusp + '"}', ( results ) =>
     {
         // console.log("Enviou");
-        console.log(results);
+        // console.log(results);
     }, 
     (error) => {
 
-        console.log("Falha ao enviar NUSP para o professor!");
+        this.utilsService.presentToast("Falha ao enviar NUSP para o professor!");
         // console.log(error);
         this.stopServer();
     });
@@ -112,7 +114,7 @@ export class EnviarConfirmacao {
         this.zone.run( ()=>{
             // console.log( "erro?" + JSON.stringify(error) );
             this.isOk = false;
-            console.log( "Falha ao se conectar com professor!");
+            this.utilsService.presentToast( "Falha ao se conectar com o dispositivo do professor! Ele está escutando?");
             this.stopServer();
 
           } ); 
@@ -122,16 +124,14 @@ export class EnviarConfirmacao {
   stopServer() {
       this.isSending = false;
       cordova.plugins.usp.blueToothUniversal.disconnectAll( (status)=>{
-            console.log("Desconectou");
+            // console.log("Desconectou");
                 this.zone.run( ()=>{
                 // console.log("Parou de escutar com sucesso");
-                    
                 });
             },
             error=>{
                 this.zone.run( ()=>{
-                    console.log( "Falha ao parar de escutar!");
-                    // console.log("Erro ao parar de escutar");
+                    console.log( "Falha ao desconectar!");
                 });
             }
       );
@@ -147,8 +147,18 @@ export class EnviarConfirmacao {
       });
     },
     error=>{
-      console.log( "Falha ao obter usuário logado");
+      this.utilsService.presentToast( "Falha ao obter NUSP do usuário logado!");
     });
   }
+
+
+  ionViewWillEnter() {
+    this.menu.enable(true);
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(false);
+  }
+
 
 }

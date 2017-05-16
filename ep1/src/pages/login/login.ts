@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
 import { ProfessorService } from '../../services/professor.service';
@@ -8,7 +8,6 @@ import { CadastroPage } from '../cadastro/cadastro';
 import { SeminarioPage } from '../seminario/seminario';
 import { Storage } from '@ionic/storage';
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'

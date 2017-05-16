@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { PresencaService } from '../../services/presenca.service';
 import { Storage } from '@ionic/storage';
@@ -23,45 +23,40 @@ export class ConfirmarQrcode {
   isOkSeminario:boolean;
   isOkQRCode:boolean;
   nusp:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner:BarcodeScanner, private presencaService: PresencaService,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner:BarcodeScanner, 
+    private presencaService: PresencaService, private menu: MenuController,
     private storage: Storage ) {
-    this.isReading = true;
-    this.isOkQRCode = false;
-    this.isOkSeminario = false;
-    this.isCancelled = false;
     this.iniciaAposLerNumUSP();
   }
 
   readQRCode() {
     // console.log( "Passou aqui" );
     this.barcodeScanner.scan().then((barcodeData) => {
-        this.isOkQRCode = true;
         // console.log( JSON.stringify( barcodeData ) );
         // console.log( "Seminario: " + barcodeData["text"] );
         if ( barcodeData["cancelled"] ) {
           // console.log( "Cancelado." );
-          this.isCancelled = true;
-          this.isReading = false;
+          this.navCtrl.pop();
         } else {
           // console.log( "Lido." );
           this.seminarioId = barcodeData["text"];
           this.presencaService
               .submitPresenca(this.nusp, this.seminarioId )
               .then(dataSent => {
-                    this.isOkSeminario = dataSent.success;
-                    this.isReading = false;
+                    if ( dataSent.success ) {
+                          this.showScreenMessage(  "Sucesso! Você acabou de confirmar a sua presença! ( Id do seminário: "+this.seminarioId+")" );
+                    } else {
+                          this.showScreenMessage( "Falha ao confirmar a presença! ( Id do seminário: "+this.seminarioId+")" );
+                    }
                 },
                 error => {
-                    this.isOkSeminario = false;
-                    this.isReading = false;
+                    this.showScreenMessage( "Falha ao confirmar a presença! ("+this.seminarioId+")" );
 
                 });
           
         }
     }, (err) => {
-        this.isOkSeminario = false;
-        this.isReading = false;
-        console.log( "Erro ao ler qrcode" );
+        this.showScreenMessage( "Falha ao confirmar a presença!");
     });
 
   }
@@ -79,9 +74,20 @@ export class ConfirmarQrcode {
         });
       },
       error=>{
-        this.isOkSeminario = false;
-        this.isReading = false;
-        console.log( "Falha ao obter usuário logado");
+        this.showScreenMessage( "Falha ao obter usuário logado");
       });
+  }
+
+
+  ionViewWillEnter() {
+    this.menu.enable(true);
+  }
+
+  ionViewWillLeave() {
+    this.menu.enable(false);
+  }
+
+  showScreenMessage( msg ) {
+         this.navCtrl.setRoot( "MessagePage", { msg:msg, title:"Confirmar QRCode" } );
   }
 }

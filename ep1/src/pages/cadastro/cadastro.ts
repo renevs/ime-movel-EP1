@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
 import { ProfessorService } from '../../services/professor.service';
 import { UtilsService } from '../../services/utils.service';
 
-@IonicPage()
 @Component({
   selector: 'page-cadastro',
   templateUrl: 'cadastro.html',

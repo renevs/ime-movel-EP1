@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {  NgZone } from '@angular/core';
+import { UtilsService } from '../../services/utils.service';
+
 declare var cordova: any;
 
 
@@ -20,28 +22,31 @@ export class SelecionarDispositivo {
   isVerificando: boolean;
   isOk: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private zone: NgZone) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private zone: NgZone, private utilsService: UtilsService ) {
     this.isVerificando = true;
     this.isOk = false;
     this.listaSeBluetoothLigado();
   }
 
   listaSeBluetoothLigado() {
-    console.log( "Verificando se bluetooth estah ligado");
+    // console.log( "Verificando se bluetooth estah ligado");
     cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>
                 {
 
-                    console.log( "bluetooth estah ligado");
+                    // console.log( "bluetooth estah ligado");
                     
                     this.zone.run( ()=>{
                       this.listaBluetoothLigado();
                     });
                 }, 
                 (error) => {
-                    console.log( "bluetooth estah desligado");
+                    // console.log( "bluetooth estah desligado");
                   
-                    console.log(error);
-                    this.navCtrl.setRoot( "BluetoothOff" );
+                    // console.log(error);
+                    // this.navCtrl.setRoot( "BluetoothOff" );
+                    this.zone.run( ()=>{
+                      this.utilsService.presentToast("Erro na obtenção dos dispositivos, bluetooth ligado?" );
+                    });
                 }
     )
   }
@@ -49,19 +54,19 @@ export class SelecionarDispositivo {
   listaBluetoothLigado() {
         cordova.plugins.usp.blueToothUniversal.list(
                 (results)=> {
-                    console.log("Sem erros");
+                    // console.log("Sem erros");
                     this.isVerificando = false;
                     this.isOk = true;
                     this.zone.run( ()=>{
                       this.mobiles =  results;
                     });
-                    console.log(results);
+                    // console.log(results);
                 },
                 function(error) {
                     this.zone.run( ()=>{
                       this.isOk = false;
                       this.isVerificando = false;
-                      console.log("Erro na obtenção dos dispositivos, bluetooth ligado?" + error);
+                      this.utilsService.presentToast("Erro na obtenção dos dispositivos, bluetooth ligado?" + error);
                     });
                 }
 
@@ -69,11 +74,11 @@ export class SelecionarDispositivo {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SelecionarDispositivio');
+    // console.log('ionViewDidLoad SelecionarDispositivio');
   }
 
   itemEscolhido(event, m) {
-    console.log( m.address );
+    // console.log( m.address );
 
     this.navCtrl.setRoot( "EnviarConfirmacao", { deviceAddress:m.address } );
     //this.navCtrl.setRoot( "BlueToothAlunoTransferenciaPage", { m: m } );

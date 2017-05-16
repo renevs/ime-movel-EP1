@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { PresencaService } from '../../services/presenca.service';
 import { AlunoService } from '../../services/aluno.service';
 import { UtilsService } from '../../services/utils.service';
@@ -8,7 +8,6 @@ import * as BT from '../../app/bluetoothConstants';
 
 declare var cordova: any;
 
-@IonicPage()
 @Component({
   selector: 'page-seminario-detalhes',
   templateUrl: 'seminario-detalhes.html',
@@ -85,13 +84,13 @@ export class SeminarioDetalhesPage {
                               }
                 },
                 error => {
-                    console.log( "falha ao confirmar presença para o NUSP: " + jsonUSP[ BT.VALIDA_NUSP]);
+                    this.utilsService.presentToast( "falha ao confirmar presença para o NUSP: " + jsonUSP[ BT.VALIDA_NUSP]);
                     this.disconnect( data[ BT.DEVICE ] );
                 });
 
 
         } else {
-            console.log( "Erro ao receber número usp do dispositivo: " + data[ BT.DEVICE ] );
+            // console.log( "Erro ao receber número usp do dispositivo: " + data[ BT.DEVICE ] );
             this.disconnect( data[ BT.DEVICE ] );
         }
     }
@@ -106,7 +105,7 @@ export class SeminarioDetalhesPage {
     },
     (error) => {
 
-        console.log("Falha ao avisar aluno do resultado!");
+        // console.log("Falha ao avisar aluno do resultado!");
         // console.log(error);
         this.disconnect( deviceAddress );
     });
@@ -118,13 +117,12 @@ export class SeminarioDetalhesPage {
 
                 this.isListening = true;
                 this.zone.run( ()=>{
-                    console.log("Escutando alunos");
+                    this.utilsService.presentToast("Escutando alunos");
                 });
             },
             error=>{
                 this.zone.run( ()=>{
-                    console.log("Falha ao tentar escutar alunos!");
-                    console.log( JSON.stringify(error) );
+                    this.utilsService.presentToast("Falha ao tentar escutar alunos!");
                 }
                 );
             });
@@ -136,7 +134,7 @@ export class SeminarioDetalhesPage {
                     this.startServer();
                 },
                 (error) => {
-                    console.log( "Bluetooth não ligado!" );
+                    this.utilsService.presentToast( "Bluetooth precisa ser ligado para prosseguir!" );
                     // console.log(error);
                     // alert( "Bluetooth está desligado. Ligue e tente novamente!");
                 }
@@ -145,10 +143,10 @@ export class SeminarioDetalhesPage {
 
   disconnect( deviceAddress ) {
       cordova.plugins.usp.blueToothUniversal.disconnect( deviceAddress, (status)=>{
-                console.log("Desconectou: "+ deviceAddress);
+                // console.log("Desconectou: "+ deviceAddress);
             },
             error=>{
-                console.log("Erro ao desconectar");
+                // console.log("Erro ao desconectar");
             }
       );
   }
@@ -164,7 +162,8 @@ export class SeminarioDetalhesPage {
             },
             error=>{
                 this.zone.run( ()=>{
-                    console.log("Erro ao parar de escutar");
+
+                    this.utilsService.presentToast( "Erro ao parar de escutar!" );
                 });
             }
       );
@@ -199,7 +198,7 @@ export class SeminarioDetalhesPage {
                     this.navCtrl.push( "SelecionarDispositivo" );
                 },
                 (error) => {
-                    console.log( "Bluetooth não ligado!" );
+                    this.utilsService.presentToast( "Bluetooth precisa ser ligado para prosseguir!" );
                     // console.log(error);
                     // alert( "Bluetooth está desligado. Ligue e tente novamente!");
                 }
@@ -221,4 +220,10 @@ export class SeminarioDetalhesPage {
     confirmarQRCode(  event ) {
          this.navCtrl.push( "ConfirmarQrcode" );
     }
+
+   ionViewWillLeave() {
+      if ( this.isListening ) {
+          this.stopServer();
+      }  
+   }
 }
