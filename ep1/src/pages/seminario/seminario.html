@@ -10,20 +10,14 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let seminario of seminarios">
-    <ion-card (click)="goToDetails(seminario)">
-      <ion-card-header>
-        {{ seminario.id }}
-       </ion-card-header>
-      <ion-card-content>
-        {{ seminario.name }}
-      </ion-card-content>
-    </ion-card>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let seminario of seminarios" (click)="goToDetails(seminario)">
+    <ion-item-divider>{{ seminario.id }}</ion-item-divider> 
+    <ion-card-content>
+      <ion-label color="dark" class="labelText labelTextCustom">{{ seminario.name }} </ion-label>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 <ion-fab right bottom *ngIf="type === 'professor'"> 
-  <button ion-fab color="danger" (click)="addSeminario()"><ion-icon name="add"></ion-icon></button>
+  <button ion-fab color="pink" (click)="addSeminario()"><ion-icon name="add"></ion-icon></button>
 </ion-fab>

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
 import { ProfessorService } from '../../services/professor.service';
+import { UtilsService } from '../../services/utils.service';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ import { ProfessorService } from '../../services/professor.service';
 export class CadastroPage {
   private cadastroGroup: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService) {
+  constructor(private utilsService: UtilsService, public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, private alunoService: AlunoService, private professorService: ProfessorService) {
     this.cadastroGroup = this.formBuilder.group({
       type: ['aluno', Validators.required],
       nusp: ['', Validators.required],
@@ -27,22 +28,28 @@ export class CadastroPage {
         this.alunoService
           .addAluno(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name)
           .then(aluno =>  {
-                            if (aluno.success) this.navCtrl.pop();
-                            else alert("Não");
+                            if (aluno.success) {
+                              this.utilsService.presentToast('Sua conta foi criada com sucesso');
+                              this.navCtrl.pop();
+                            }
+                            else this.utilsService.presentToast('Falha no cadastramento');
                           },
-                error => alert(error));
+                error => this.utilsService.presentToast('Falha no serviço cadastramento'));
         break;
       case 'professor':
         this.professorService
           .addProfessor(this.cadastroGroup.value.nusp, this.cadastroGroup.value.password, this.cadastroGroup.value.name)
           .then(professor =>  {
-                                if (professor.success) this.navCtrl.pop();
-                                else alert("Não");
+                                if (professor.success) {
+                                  this.utilsService.presentToast('Sua conta foi criada com sucesso');
+                                  this.navCtrl.pop();
+                                }
+                                else this.utilsService.presentToast('Falha no cadastramento');;
                               },
-                error => alert(error));
+                error => this.utilsService.presentToast('Falha no serviço cadastramento'));
         break;
       default:
-        alert('Escolha entre aluno e professor');
+        this.utilsService.presentToast('Escolha entre aluno e professor');
     }
   }
 

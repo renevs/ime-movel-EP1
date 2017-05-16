@@ -3,11 +3,12 @@ import { Http } from '@angular/http';
 import { Aluno } from '../entities/aluno';
 import { Ep1ApiService } from '../services/ep1-api.service';
 import 'rxjs/add/operator/toPromise';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class AlunoService extends Ep1ApiService {
-    constructor(private http: Http) {
-        super();
+    constructor(private http: Http, public utilsService: UtilsService) {
+        super(utilsService);
     }
 
     getAlunos(): Promise<Aluno[]> {

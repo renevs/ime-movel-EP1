@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Ep1ApiService } from '../services/ep1-api.service';
 import 'rxjs/add/operator/toPromise';
+import { UtilsService } from './utils.service';
 
 @Injectable()
 export class PresencaService extends Ep1ApiService{
-    constructor(private http: Http) {
-        super();
+    constructor(private http: Http, public utilsService: UtilsService) {
+        super(utilsService);
     }
 
     submitPresenca(nusp: string, seminar_id: string): Promise<any> {

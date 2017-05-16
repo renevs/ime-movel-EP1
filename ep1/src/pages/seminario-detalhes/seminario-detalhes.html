@@ -1,35 +1,36 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
     <ion-title>Seminário {{ seminarioId }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
-
-  <ion-card>
-    <ion-card-header>
-      {{ seminarioName }}
+<ion-content>
+  <div class="cardCustom">
+    <ion-card>
+      <ion-card-header>
+        <ion-label color="dark" class="labelText labelTextCustom" color="dark" class="labelText labelTextCustom">{{ seminarioName }} </ion-label>
       </ion-card-header>
-    <ion-card-content>
-      TODO
-    </ion-card-content>
-  </ion-card>
+      <ion-card-content>
+        <ion-item-divider color="light" class="itemDivider">{{ alunos.length }} estudante(s) confirmados para esse semináro</ion-item-divider> 
+          <ion-label *ngFor="let aluno of alunos">
+              {{ aluno.nusp }} - {{ aluno.name }}
+          </ion-label>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-content *ngIf="type === 'professor'">
-        <button ion-button (click)="generateQRCode()">Gerar Seminário QRCode</button>
-        <button ion-button (click)="listenBluetooth()">Escutar Dispositivos Bluetooth</button>
-    </ion-card-content>
+    <ion-card>
+      <ion-card-content *ngIf="type === 'professor'">
+          <button block ion-button color="light-darker" (click)="projectQRCode()">Gerar Seminário QRCode</button>
+          <button block ion-button color="light-darker" *ngIf="!isListening" (click)="listenData($event)">Escutar Dispositivos Bluetooth</button>
+          <button block ion-button color="light-darker" *ngIf="isListening" (click)="stopListenData($event)">Parar de receber confirmação</button>
+      </ion-card-content>
 
-    <ion-card-content *ngIf="type === 'aluno'">
-        <button ion-button (click)="confirmQRCode()">Confirmar Presença via QRCode</button>
-        <button ion-button (click)="confirmBluetooth()">Confirmar Presença via Bluetooth</button>
-    </ion-card-content>
-  </ion-card>
-
+      <ion-card-content *ngIf="type === 'aluno'">
+          <button block ion-button color="light-darker" (click)="confirmarQRCode()">Confirmar Presença via QRCode</button>
+          <button block ion-button color="light-darker" (click)="confirmarbluetooth()">Confirmar Presença via Bluetooth</button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

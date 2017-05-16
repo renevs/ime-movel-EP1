@@ -1,3 +1,10 @@
 page-seminario {
+    .labelTextCustom {
+        font-size: x-large;
+    }
 
+
+  $alert-md-message-text-color: color($colors, dark, base);
+  $alert-md-button-text-color: color($colors, pink, base);
+  $alert-md-input-border-color: color($colors, pink, base);
 }

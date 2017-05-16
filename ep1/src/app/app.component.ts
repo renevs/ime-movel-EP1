@@ -3,10 +3,10 @@ import { Platform, Nav, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
-import { CadastroPage } from '../pages/cadastro/cadastro';
 import { SeminarioPage } from '../pages/seminario/seminario';
 import { AlterarPage } from '../pages/alterar/alterar';
 import { Storage } from '@ionic/storage';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,8 +18,9 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
   nome: string;
   nusp: string;
+  type: string;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public events: Events, public storage: Storage) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public events: Events, public storage: Storage, private utilsService: UtilsService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -32,9 +33,10 @@ export class MyApp {
       { title: 'Editar Conta', component: AlterarPage, icon: 'contact' },
       { title: 'Logout', component: LoginPage, icon: 'log-out' },
     ];
-    events.subscribe('user:getNomeNusp', (nome, nusp) => {
+    events.subscribe('user:getNomeNusp', (nome, nusp, type) => {
       this.nome = nome;
-      this.nusp = nusp;   
+      this.nusp = nusp;
+      this.type = type;   
     });
   }
 
@@ -44,7 +46,8 @@ export class MyApp {
         this.logout();
         break;
       case SeminarioPage:
-        this.nav.setRoot(page.component);
+      case AlterarPage:
+        this.nav.setRoot(page.component, {nusp: this.nusp, type: this.type});
         break;
       default:
         this.nav.push(page.component);
@@ -58,8 +61,8 @@ export class MyApp {
         this.storage.remove('type'),
         this.storage.remove('password'),
         this.storage.remove('auto')
-      ]).then(() => this.nav.setRoot(LoginPage));
-    });
+      ]).then(() => this.nav.setRoot(LoginPage), error => this.utilsService.presentToast('Não foi possível remover informações do usuário'));
+    }, error => this.utilsService.presentToast('Erro ao carregar informações do usuário'));
   }
 }
 

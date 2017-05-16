@@ -1,0 +1,11 @@
+page-login {
+  .selectCustom {
+    max-width: 98% !important;
+    width: 98% !important;
+    padding: 25px 8px 0px 8px !important;
+  }
+
+  ion-item, ion-card {
+    background-color: color($colors, light, base) !important;; 
+  }
+}

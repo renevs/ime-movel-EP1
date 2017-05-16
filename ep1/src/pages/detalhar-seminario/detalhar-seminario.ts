@@ -67,15 +67,15 @@ export class DetalharSeminario {
   confirmaNUSP( data ) {
     if ( data[ BT.MESSAGE ] ) {
         var jsonUSP = null;
-        try{ 
+        try{
             jsonUSP = JSON.parse( data[ BT.MESSAGE ] );
-            
-            
+
+
         } catch(e) {
             // console.log( "Erro: " + e );
         }
         if ( jsonUSP != null ) {
-            // console.log( "Chamando serviço: " + jsonUSP[ BT.VALIDA_NUSP] ); 
+            // console.log( "Chamando serviço: " + jsonUSP[ BT.VALIDA_NUSP] );
             this.presencaService
               .submitPresenca(jsonUSP[ BT.VALIDA_NUSP], this.seminarioId )
               .then(dataSent => {
@@ -91,10 +91,10 @@ export class DetalharSeminario {
                     console.log( "falha ao confirmar presença para o NUSP: " + jsonUSP[ BT.VALIDA_NUSP]);
                     this.disconnect( data[ BT.DEVICE ] );
                 });
-            
-            
+
+
         } else {
-            console.log( "Erro ao receber número usp do dispositivo: " + data[ BT.DEVICE ] ); 
+            console.log( "Erro ao receber número usp do dispositivo: " + data[ BT.DEVICE ] );
             this.disconnect( data[ BT.DEVICE ] );
         }
     }
@@ -106,7 +106,7 @@ export class DetalharSeminario {
         // console.log("Enviou OK");
         // console.log(results);
         this.disconnect( deviceAddress );
-    }, 
+    },
     (error) => {
 
         console.log("Falha ao avisar aluno do resultado!");
@@ -141,7 +141,7 @@ export class DetalharSeminario {
     cordova.plugins.usp.blueToothUniversal.enable( ( results ) =>
                 {
                     this.startServer();
-                }, 
+                },
                 (error) => {
                     console.log( "Bluetooth não ligado!" );
                     // console.log(error);
@@ -155,14 +155,14 @@ export class DetalharSeminario {
                 {
                     // console.log(results);
                     this.startServer();
-                }, 
+                },
                 (error) => {
                     this.ligaBluetooth();
                     // console.log(error);
                     // alert( "Bluetooth está desligado. Ligue e tente novamente!");
                 }
       )
-    
+
   }
 
   disconnect( deviceAddress ) {
@@ -181,7 +181,7 @@ export class DetalharSeminario {
             console.log("Desconectou");
                 this.zone.run( ()=>{
                 // console.log("PArou de escutar com sucesso");
-                    
+
                 });
             },
             error=>{
@@ -202,8 +202,8 @@ export class DetalharSeminario {
   ligaBluetoothAluno() {
      cordova.plugins.usp.blueToothUniversal.enable( ( results ) =>
                 {
-                    this.navCtrl.setRoot( "SelecionarDispositivo" );
-                }, 
+                    this.navCtrl.push( "SelecionarDispositivo" );
+                },
                 (error) => {
                     console.log( "Bluetooth não ligado!" );
                     // console.log(error);
@@ -215,16 +215,16 @@ export class DetalharSeminario {
   confirmarbluetooth() {
       cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>
                 {
-                    this.navCtrl.setRoot( "SelecionarDispositivo" );
-                }, 
+                    this.navCtrl.push( "SelecionarDispositivo" );
+                },
                 (error) => {
                     this.ligaBluetoothAluno();
                 }
       )
-      
+
   }
   confirmarQRCode(  event ) {
-       this.navCtrl.setRoot( "ConfirmarQrcode" );
+       this.navCtrl.push( "ConfirmarQrcode" );
   }
 
 }
