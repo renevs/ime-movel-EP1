@@ -17,18 +17,11 @@ export class SeminarioDetalhesPage {
   seminarioId: string = this.navParams.get('seminarioId');
   seminarioName: string = this.navParams.get('seminarioName');
   type: string = this.navParams.get('type');
-  alunos: Array<Aluno> = [];
+  alunos: Array<Aluno> = this.navParams.get('alunos');
 
   constructor(private utilsService: UtilsService, public navCtrl: NavController, public navParams: NavParams, private alunoService: AlunoService, private presencaService: PresencaService, private zone: NgZone, public platform: Platform) {
-    this.presencaService.listAlunos(this.seminarioId).then((presenca) => {
-      for (let p of presenca.data) {
-        this.alunoService.searchAluno(p.student_nusp).then((aluno) => this.alunos.push(aluno));
-      }
-    });
-
     this.isListening = false;
-
-    /*cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
+    cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
             // console.log( JSON.stringify(data));
             // console.log( "leu algo no subscribe" );
             this.confirmaAcaoSubscriber( data );
@@ -43,7 +36,7 @@ export class SeminarioDetalhesPage {
                         }
                     }
                 } );
-            } );*/
+            } );
   }
 
   qrCodeSize() {

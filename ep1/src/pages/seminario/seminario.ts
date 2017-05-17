@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events, MenuController, AlertController } from 'ionic-angular';
 import { SeminarioService } from '../../services/seminario.service';
 import { ProfessorService } from '../../services/professor.service';
+import { PresencaService } from '../../services/presenca.service';
 import { AlunoService } from '../../services/aluno.service';
 import { UtilsService } from '../../services/utils.service';
 import { Seminario } from '../../entities/seminario';
+import { Aluno } from '../../entities/aluno';
 import { SeminarioDetalhesPage } from '../seminario-detalhes/seminario-detalhes';
 import { Storage } from '@ionic/storage';
 
@@ -16,8 +18,9 @@ export class SeminarioPage {
   seminarios: Seminario[];
   nome: string = '';
   type: string = this.navParams.get('type');
+  alunosPromises: Array<Promise<Aluno>> = [];
 
-  constructor(private utilsService: UtilsService, private alertCtrl: AlertController, private storage: Storage, public events: Events, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private seminarioService: SeminarioService, private alunoService: AlunoService, private professorService: ProfessorService) {
+  constructor(private presencaService: PresencaService, private utilsService: UtilsService, private alertCtrl: AlertController, private storage: Storage, public events: Events, public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, private seminarioService: SeminarioService, private alunoService: AlunoService, private professorService: ProfessorService) {
     this.getSeminarios();
     this.getUserName(this.type);
   }
@@ -82,10 +85,18 @@ export class SeminarioPage {
   }
 
   goToDetails(seminario: Seminario) {
-    this.navCtrl.push(SeminarioDetalhesPage, {
-      type: this.type,
-      seminarioId: seminario.id,
-      seminarioName: seminario.name
+    this.presencaService.listAlunos(seminario.id).then((presenca) => {
+      for (let p of presenca.data) {
+        this.alunosPromises.push(this.alunoService.searchAluno(p.student_nusp));
+      }
+      Promise.all(this.alunosPromises).then(alunos => {
+          this.navCtrl.push(SeminarioDetalhesPage, {
+              type: this.type,
+              seminarioId: seminario.id,
+              seminarioName: seminario.name,
+              alunos: alunos
+          });
+        });
     });
   }
 
