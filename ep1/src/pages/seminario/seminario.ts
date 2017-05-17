@@ -85,17 +85,29 @@ export class SeminarioPage {
 
   goToDetails(seminario: Seminario) {
     this.presencaService.listAlunos(seminario.id).then((presenca) => {
-      for (let p of presenca.data) {
-        this.alunosPromises.push(this.alunoService.searchAluno(p.student_nusp));
+      if (this.type === 'aluno') {
+            this.navCtrl.push(SeminarioDetalhesPage, {
+                type: this.type,
+                seminarioId: seminario.id,
+                seminarioName: seminario.name,
+                alunos: [],
+                alunosTotal: presenca.data.length
+            });
       }
-      Promise.all(this.alunosPromises).then(alunos => {
-          this.navCtrl.push(SeminarioDetalhesPage, {
-              type: this.type,
-              seminarioId: seminario.id,
-              seminarioName: seminario.name,
-              alunos: alunos
-          });
+      else {
+        for (let p of presenca.data) {
+          this.alunosPromises.push(this.alunoService.searchAluno(p.student_nusp));
+        }
+        Promise.all(this.alunosPromises).then(alunos => {
+            this.navCtrl.push(SeminarioDetalhesPage, {
+                type: this.type,
+                seminarioId: seminario.id,
+                seminarioName: seminario.name,
+                alunos: alunos,
+                alunosTotal: alunos.length
+            });
         });
+      }
     });
   }
 
