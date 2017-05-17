@@ -4,13 +4,6 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { PresencaService } from '../../services/presenca.service';
 import { Storage } from '@ionic/storage';
 
-
-/**
- * Generated class for the ConfirmarQrcode page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-confirmar-qrcode',
@@ -23,22 +16,17 @@ export class ConfirmarQrcode {
   isOkSeminario:boolean;
   isOkQRCode:boolean;
   nusp:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner:BarcodeScanner, 
+  constructor(public navCtrl: NavController, public navParams: NavParams, private barcodeScanner:BarcodeScanner,
     private presencaService: PresencaService, private menu: MenuController,
     private storage: Storage ) {
     this.iniciaAposLerNumUSP();
   }
 
   readQRCode() {
-    // console.log( "Passou aqui" );
     this.barcodeScanner.scan().then((barcodeData) => {
-        // console.log( JSON.stringify( barcodeData ) );
-        // console.log( "Seminario: " + barcodeData["text"] );
         if ( barcodeData["cancelled"] ) {
-          // console.log( "Cancelado." );
           this.navCtrl.pop();
         } else {
-          // console.log( "Lido." );
           this.seminarioId = barcodeData["text"];
           this.presencaService
               .submitPresenca(this.nusp, this.seminarioId )
@@ -51,18 +39,11 @@ export class ConfirmarQrcode {
                 },
                 error => {
                     this.showScreenMessage( "Falha ao confirmar a presença! ("+this.seminarioId+")" );
-
                 });
-          
         }
     }, (err) => {
         this.showScreenMessage( "Falha ao confirmar a presença!");
     });
-
-  }
-
-  ionViewDidLoad() {
-    // console.log('ionViewDidLoad ConfirmarQrcode');
 
   }
 
@@ -88,6 +69,6 @@ export class ConfirmarQrcode {
   }
 
   showScreenMessage( msg ) {
-         this.navCtrl.setRoot( "MessagePage", { msg:msg, title:"Confirmar QRCode" } );
+     this.navCtrl.setRoot( "MessagePage", { msg:msg, title:"Confirmar QRCode" } );
   }
 }

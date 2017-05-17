@@ -16,7 +16,7 @@ export class MyApp {
 
   rootPage:any = LoginPage;
   pages: Array<{title: string, component: any, icon: string}>;
-  nome: string;
+  name: string;
   nusp: string;
   type: string;
 
@@ -32,8 +32,8 @@ export class MyApp {
       { title: 'Editar Conta', component: AlterarPage, icon: 'contact' },
       { title: 'Logout', component: LoginPage, icon: 'log-out' },
     ];
-    events.subscribe('user:getNomeNusp', (nome, nusp, type) => {
-      this.nome = nome;
+    events.subscribe('user:getNameNusp', (name, nusp, type) => {
+      this.name = name;
       this.nusp = nusp;
       this.type = type;
     });

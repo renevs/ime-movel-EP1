@@ -5,13 +5,6 @@ import { UtilsService } from '../../services/utils.service';
 
 declare var cordova: any;
 
-
-/**
- * Generated class for the SelecionarDispositivio page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-selecionar-dispositivo',
@@ -29,38 +22,27 @@ export class SelecionarDispositivo {
   }
 
   listaSeBluetoothLigado() {
-    // console.log( "Verificando se bluetooth estah ligado");
-    cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>
-                {
-
-                    // console.log( "bluetooth estah ligado");
-                    
-                    this.zone.run( ()=>{
-                      this.listaBluetoothLigado();
-                    });
-                }, 
-                (error) => {
-                    // console.log( "bluetooth estah desligado");
-                  
-                    // console.log(error);
-                    // this.navCtrl.setRoot( "BluetoothOff" );
-                    this.zone.run( ()=>{
-                      this.utilsService.presentToast("Erro na obtenção dos dispositivos, bluetooth ligado?" );
-                    });
-                }
+    cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) => {
+            this.zone.run( ()=>{
+              this.listaBluetoothLigado();
+            });
+        },
+        (error) => {
+            this.zone.run( ()=>{
+              this.utilsService.presentToast("Erro na obtenção dos dispositivos, bluetooth ligado?" );
+            });
+        }
     )
   }
 
   listaBluetoothLigado() {
         cordova.plugins.usp.blueToothUniversal.list(
                 (results)=> {
-                    // console.log("Sem erros");
                     this.isVerificando = false;
                     this.isOk = true;
                     this.zone.run( ()=>{
                       this.mobiles =  results;
                     });
-                    // console.log(results);
                 },
                 function(error) {
                     this.zone.run( ()=>{
@@ -73,15 +55,8 @@ export class SelecionarDispositivo {
         );
   }
 
-  ionViewDidLoad() {
-    // console.log('ionViewDidLoad SelecionarDispositivio');
-  }
-
   itemEscolhido(event, m) {
-    // console.log( m.address );
-
     this.navCtrl.setRoot( "EnviarConfirmacao", { deviceAddress:m.address } );
-    //this.navCtrl.setRoot( "BlueToothAlunoTransferenciaPage", { m: m } );
   }
 
 }

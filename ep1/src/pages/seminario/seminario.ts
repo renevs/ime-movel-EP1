@@ -15,8 +15,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'seminario.html',
 })
 export class SeminarioPage {
-  seminarios: Seminario[];
-  nome: string = '';
+  seminars: Seminario[];
   type: string = this.navParams.get('type');
   alunosPromises: Array<Promise<Aluno>> = [];
 
@@ -29,7 +28,7 @@ export class SeminarioPage {
     this.seminarioService
       .getSeminario()
       .then(seminarios => {
-                            this.seminarios = seminarios;
+                            this.seminars = seminarios;
                           } ,
           error => this.utilsService.presentToast('Falha ao carregar seminários'));
   }
@@ -48,9 +47,9 @@ export class SeminarioPage {
     }
   }
 
-  setMenuCredentials(nome: string) {
+  setMenuCredentials(name: string) {
     this.storage.ready().then(() => {
-        this.storage.set('name', nome).then(() => this.events.publish('user:getNomeNusp', nome, this.navParams.get('nusp'), this.type), error => this.utilsService.presentToast('Não foi possível obter nome do Storage'))
+        this.storage.set('name', name).then(() => this.events.publish('user:getNameNusp', name, this.navParams.get('nusp'), this.type), error => this.utilsService.presentToast('Não foi possível obter nome do Storage'))
     }, error => this.utilsService.presentToast('Não foi possível carregar informações do usuário'));
   }
 

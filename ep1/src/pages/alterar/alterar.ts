@@ -59,7 +59,7 @@ export class AlterarPage {
 
   handleUpdate(success: boolean) {
     if (success) {
-      this.events.publish('user:getNomeNusp', this.editarGroup.value.name, this.editarGroup.value.nusp);
+      this.events.publish('user:getNameNusp', this.editarGroup.value.name, this.editarGroup.value.nusp);
       this.utilsService.presentToast('Conta atualizada com sucesso')
       this.navCtrl.pop();
     }

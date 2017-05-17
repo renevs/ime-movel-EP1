@@ -10,19 +10,18 @@ declare var cordova: any;
   templateUrl: 'bluetooth-check.html'
 })
 export class BluetoothCheckPage {
-  constructor(public navCtrl: NavController /*, public blueTooth:BluetoothSerial*/) {
+  constructor(public navCtrl: NavController) {
   }
 
   ionViewDidLoad() {
-    cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>
-                {
-                    console.log(results);
-                    this.navCtrl.setRoot( "EnviarConfirmacao" );
-                }, 
-                (error) => {
-                    console.log(error);
-                    this.navCtrl.setRoot( "BluetoothOff" );
-                }
+    cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>{
+              console.log(results);
+              this.navCtrl.setRoot( "EnviarConfirmacao" );
+          },
+          (error) => {
+              console.log(error);
+              this.navCtrl.setRoot( "BluetoothOff" );
+          }
     )
   }
 
