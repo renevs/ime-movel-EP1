@@ -28,7 +28,7 @@ export class SeminarioDetalhesPage {
 
     this.isListening = false;
 
-    cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
+    /*cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
             // console.log( JSON.stringify(data));
             // console.log( "leu algo no subscribe" );
             this.confirmaAcaoSubscriber( data );
@@ -43,7 +43,7 @@ export class SeminarioDetalhesPage {
                         }
                     }
                 } );
-            } );
+            } );*/
   }
 
   qrCodeSize() {
@@ -224,6 +224,6 @@ export class SeminarioDetalhesPage {
    ionViewWillLeave() {
       if ( this.isListening ) {
           this.stopServer();
-      }  
+      }
    }
 }

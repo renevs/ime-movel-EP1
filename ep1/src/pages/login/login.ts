@@ -48,7 +48,7 @@ export class LoginPage {
             ]).then(value =>  { this.login() }, (error) => this.utilsService.presentToast('Erro ao buscar informações do usuário'));
           }
         }, (error) => this.utilsService.presentToast('Não foi possível buscar conexão automática'))
-      }, 
+      },
       (error) => this.utilsService.presentToast('Erro ao carregar informações do usuário'));
   }
 
@@ -61,16 +61,14 @@ export class LoginPage {
                             if (aluno.success) this.loadSeminarioPage();
                             else this.utilsService.presentToast('Falha no Login. Por favor, verifique suas credenciais e conexão');
                           } ,
-                error => alert(error));
+                error => this.utilsService.presentToast('Erro na chamada de Login'));
         break;
       case 'professor':
         this.professorService
           .loginProfessor(this.loginGroup.value.nusp, this.loginGroup.value.password)
           .then(professor => {
-                              if (professor.success) {
-                                this.loadSeminarioPage();
-                              }
-                              else alert("Falha Login");
+                              if (professor.success) this.loadSeminarioPage();
+                              else this.utilsService.presentToast('Falha no Login. Por favor, verifique suas credenciais e conexão');
                             } ,
                 error => this.utilsService.presentToast('Erro na chamada de Login'));
         break;

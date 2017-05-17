@@ -1,17 +1,28 @@
 <ion-menu id="menu" [content]="content" enabled="disabled">
   <ion-header>
     <ion-toolbar>
-      <ion-title>{{ nome }} - {{ nusp }}</ion-title>
+      <ion-label>{{ nome }}
+      </ion-label>
+      <ion-label>{{ nusp }}
+      </ion-label>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
+    <ion-list no-lines>
+      <button menuClose ion-item (click)="openSeminarios()">
+        <ion-icon name="list-box" item-left></ion-icon>
+        Seminários
+      </button>
+    </ion-list>
+    <ion-list no-lines>
+      <ion-list-header>
+        Informações da Conta
+      </ion-list-header>
       <button menuClose ion-item *ngFor="let p of pages" item-right icon-left (click)="openPage(p)">
-        <ion-icon [name]="p.icon"></ion-icon>
+        <ion-icon [name]="p.icon" item-left></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
 </ion-menu>
-
 <ion-nav id="nav" #content [root]="rootPage" swipeBackEnabled="false"></ion-nav>
