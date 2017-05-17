@@ -29,14 +29,13 @@ export class MyApp {
     });
 
     this.pages = [
-      { title: 'Seminários', component: SeminarioPage, icon: 'list-box' },
       { title: 'Editar Conta', component: AlterarPage, icon: 'contact' },
       { title: 'Logout', component: LoginPage, icon: 'log-out' },
     ];
     events.subscribe('user:getNomeNusp', (nome, nusp, type) => {
       this.nome = nome;
       this.nusp = nusp;
-      this.type = type;   
+      this.type = type;
     });
   }
 
@@ -54,8 +53,13 @@ export class MyApp {
     }
   }
 
+  openSeminarios() {
+    let page = { title: 'Seminários', component: SeminarioPage, icon: 'list-box' };
+    this.openPage(page);
+  }
+
   logout() {
-    this.storage.ready().then(() => { 
+    this.storage.ready().then(() => {
       Promise.all([
         this.storage.remove('nusp'),
         this.storage.remove('type'),
@@ -65,4 +69,3 @@ export class MyApp {
     }, error => this.utilsService.presentToast('Erro ao carregar informações do usuário'));
   }
 }
-
