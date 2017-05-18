@@ -17,25 +17,17 @@ export class SeminarioDetalhesPage {
   seminarioId: string = this.navParams.get('seminarioId');
   seminarioName: string = this.navParams.get('seminarioName');
   type: string = this.navParams.get('type');
-  alunos: Array<Aluno> = [];
+  alunos: Array<Aluno> = this.navParams.get('alunos');
+  alunosTotal: number = this.navParams.get('alunosTotal');
 
   constructor(private utilsService: UtilsService, public navCtrl: NavController, public navParams: NavParams, private alunoService: AlunoService, private presencaService: PresencaService, private zone: NgZone, public platform: Platform) {
-    this.presencaService.listAlunos(this.seminarioId).then((presenca) => {
-      for (let p of presenca.data) {
-        this.alunoService.searchAluno(p.student_nusp).then((aluno) => this.alunos.push(aluno));
-      }
-    });
-
     this.isListening = false;
 
-    cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
-            // console.log( JSON.stringify(data));
-            // console.log( "leu algo no subscribe" );
+    /*cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
             this.confirmaAcaoSubscriber( data );
             },
             error=>{
                 this.zone.run( ()=>{
-                    // console.log( "erro" + JSON.stringify(error) );
                     if ( error[ BT.ACTION ]) {
                         if ( error[ BT.ACTION ] == BT.LISTEN ) {
                             this.utilsService.presentToast( "Escuta interrompida!" );
@@ -43,15 +35,15 @@ export class SeminarioDetalhesPage {
                         }
                     }
                 } );
-            } );
+            } );*/
   }
 
   qrCodeSize() {
-      return this.platform.width() / 10; // (100/6)% do tamanho da tela
+      return this.platform.width() / 10;
   }
 
   confirmaAcaoSubscriber( data ) {
-      if ( data[ BT.ACTION ] ) { // eh um json no padrao
+      if ( data[ BT.ACTION ] ) { 
         if ( data[ BT.ACTION ] == BT.READ ) {
            if ( data[ BT.RESULT ] == BT.BLUETOOTH_OK ) {
              this.confirmaNUSP( data );
@@ -68,13 +60,11 @@ export class SeminarioDetalhesPage {
 
 
         } catch(e) {
-            // console.log( "Erro: " + e );
         }
         if ( jsonUSP != null ) {
             if ( jsonUSP[ BT.VALIDA_SEMINARIO_ID ] != this.seminarioId ) {
                 this.enviaMensagemAluno( data[ BT.DEVICE ], BT.ERRO_SEMINARIO_MESSAGE );
             } else {
-                // console.log( "Chamando serviço: " + jsonUSP[ BT.VALIDA_NUSP] );
                 this.presencaService
                 .submitPresenca(jsonUSP[ BT.VALIDA_NUSP], this.seminarioId )
                 .then(dataSent => {
@@ -82,8 +72,6 @@ export class SeminarioDetalhesPage {
                                         this.enviaMensagemAluno( data[ BT.DEVICE ], BT.OK_MESSAGE );
                                 } else{
                                         this.enviaMensagemAluno( data[ BT.DEVICE ], BT.ERRO_MESSAGE );
-                                    //   console.log( "Não Retornou ok para: " + JSON.stringify( jsonUSP ) );
-                                        // this.disconnect( data[ BT.DEVICE ] );
                                 }
                     },
                     error => {
@@ -92,7 +80,6 @@ export class SeminarioDetalhesPage {
                     });
             }
         } else {
-            // console.log( "Erro ao receber número usp do dispositivo: " + data[ BT.DEVICE ] );
             this.disconnect( data[ BT.DEVICE ] );
         }
     }
@@ -101,22 +88,15 @@ export class SeminarioDetalhesPage {
   enviaMensagemAluno( deviceAddress, status ) {
     cordova.plugins.usp.blueToothUniversal.write(deviceAddress, status, ( results ) =>
     {
-        // console.log("Enviou OK");
-        // console.log(results);
         this.disconnect( deviceAddress );
     },
     (error) => {
-
-        // console.log("Falha ao avisar aluno do resultado!");
-        // console.log(error);
         this.disconnect( deviceAddress );
     });
   }
 
   startServer() {
         cordova.plugins.usp.blueToothUniversal.startServer( (status)=>{
-                // console.log("startou o server");
-
                 this.isListening = true;
                 this.zone.run( ()=>{
                     this.utilsService.presentToast("Escutando alunos");
@@ -137,18 +117,14 @@ export class SeminarioDetalhesPage {
                 },
                 (error) => {
                     this.utilsService.presentToast( "Bluetooth precisa ser ligado para prosseguir!" );
-                    // console.log(error);
-                    // alert( "Bluetooth está desligado. Ligue e tente novamente!");
                 }
       )
   }
 
   disconnect( deviceAddress ) {
       cordova.plugins.usp.blueToothUniversal.disconnect( deviceAddress, (status)=>{
-                // console.log("Desconectou: "+ deviceAddress);
             },
             error=>{
-                // console.log("Erro ao desconectar");
             }
       );
   }
@@ -158,7 +134,6 @@ export class SeminarioDetalhesPage {
       cordova.plugins.usp.blueToothUniversal.disconnectAll( (status)=>{
             console.log("Desconectou");
                 this.zone.run( ()=>{
-                // console.log("PArou de escutar com sucesso");
 
                 });
             },
@@ -174,13 +149,10 @@ export class SeminarioDetalhesPage {
   listenData( event ) {
       cordova.plugins.usp.blueToothUniversal.isEnabled( ( results ) =>
                 {
-                    // console.log(results);
                     this.startServer();
                 },
                 (error) => {
                     this.ligaBluetooth();
-                    // console.log(error);
-                    // alert( "Bluetooth está desligado. Ligue e tente novamente!");
                 }
       )
 
@@ -201,8 +173,6 @@ export class SeminarioDetalhesPage {
                 },
                 (error) => {
                     this.utilsService.presentToast( "Bluetooth precisa ser ligado para prosseguir!" );
-                    // console.log(error);
-                    // alert( "Bluetooth está desligado. Ligue e tente novamente!");
                 }
       )
   }
