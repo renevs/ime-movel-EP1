@@ -23,7 +23,7 @@ export class SeminarioDetalhesPage {
   constructor(private utilsService: UtilsService, public navCtrl: NavController, public navParams: NavParams, private alunoService: AlunoService, private presencaService: PresencaService, private zone: NgZone, public platform: Platform) {
     this.isListening = false;
 
-    /*cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
+    cordova.plugins.usp.blueToothUniversal.subscribe( data=> {
             this.confirmaAcaoSubscriber( data );
             },
             error=>{
@@ -35,7 +35,7 @@ export class SeminarioDetalhesPage {
                         }
                     }
                 } );
-            } );*/
+            } );
   }
 
   qrCodeSize() {
