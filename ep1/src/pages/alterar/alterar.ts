@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events, MenuController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AlunoService } from '../../services/aluno.service';
+import { SeminarioPage } from '../../pages/seminario/seminario';
 import { ProfessorService } from '../../services/professor.service';
 import { UtilsService } from '../../services/utils.service';
 import { Storage } from '@ionic/storage';
@@ -53,7 +54,7 @@ export class AlterarPage {
         break;
       default:
         this.utilsService.presentToast('Não foi identificar função do usuário');
-        this.navCtrl.pop();
+        this.navCtrl.setRoot(SeminarioPage, {nusp: this.editarGroup.value.nusp, type: this.type});
     }
   }
 
@@ -61,7 +62,7 @@ export class AlterarPage {
     if (success) {
       this.events.publish('user:getNameNusp', this.editarGroup.value.name, this.editarGroup.value.nusp);
       this.utilsService.presentToast('Conta atualizada com sucesso')
-      this.navCtrl.pop();
+      this.navCtrl.setRoot(SeminarioPage, {nusp: this.editarGroup.value.nusp, type: this.type});
     }
     else {
       this.utilsService.presentToast('Falha ao editar conta');

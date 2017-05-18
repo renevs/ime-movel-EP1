@@ -11,8 +11,7 @@ export class UtilsService {
             message: message,
             duration: 3500,
             position: 'bottom',
-            cssClass: "toastClass",
-            dismissOnPageChange: true
+            cssClass: "toastClass"
         });
 
         toast.present();
