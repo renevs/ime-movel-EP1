@@ -18,6 +18,7 @@ export class SeminarioDetalhesPage {
   seminarioName: string = this.navParams.get('seminarioName');
   type: string = this.navParams.get('type');
   alunos: Array<Aluno> = this.navParams.get('alunos');
+  alunosTotal: number = this.navParams.get('alunosTotal');
 
   constructor(private utilsService: UtilsService, public navCtrl: NavController, public navParams: NavParams, private alunoService: AlunoService, private presencaService: PresencaService, private zone: NgZone, public platform: Platform) {
     this.isListening = false;
