@@ -6,28 +6,21 @@
 
 </ion-header>
 
-<ion-content style="max-height:100vh;">
+<ion-content>
   <div class="cardCustom">
-    <ion-card style="height:65vh;">
+    <ion-card>
+      <ion-card-header>
+        <ion-label color="dark" class="labelText labelTextCustom" color="dark" class="labelText labelTextCustom">{{ seminarioName }} </ion-label>
+      </ion-card-header>
       <ion-card-content>
-        <ion-label color="dark" class="labelText labelTextCustom" color="dark">{{ seminarioName }} </ion-label>
-        <ion-item-divider color="light" class="itemDivider" style="padding-left: 0px;">
-          <ion-label class="labelText">
-            {{ alunosTotal }} estudante(s) confirmados para esse semináro
+        <ion-item-divider color="light" class="itemDivider">{{ alunos.length }} estudante(s) confirmados para esse semináro</ion-item-divider> 
+          <ion-label *ngFor="let aluno of alunos">
+              {{ aluno.nusp }} - {{ aluno.name }}
           </ion-label>
-        </ion-item-divider>
-         </ion-card-content>
-          <ion-card-content style="height:inherit; overflow: scroll !important; padding-top: 0px;">
-          <ion-grid *ngIf="type === 'professor'">
-            <ion-row *ngFor="let aluno of alunos">
-              <ion-col col-4>{{ aluno.nusp }}</ion-col>
-              <ion-col col-8>{{ aluno.name }}</ion-col>
-            </ion-row>
-          </ion-grid>
       </ion-card-content>
     </ion-card>
 
-    <ion-card style="max-height:20vh;">
+    <ion-card>
       <ion-card-content *ngIf="type === 'professor'">
           <button block ion-button color="light-darker" (click)="projectQRCode()">Gerar Seminário QRCode</button>
           <button block ion-button color="light-darker" *ngIf="!isListening" (click)="listenData($event)">Escutar Dispositivos Bluetooth</button>
